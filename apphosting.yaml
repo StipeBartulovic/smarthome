@@ -1,0 +1,7 @@
+# Firebase App Hosting: build (`npm run build`) pa `npm start` (server.mjs poslužuje dist/).
+runConfig:
+  minInstances: 0
+  maxInstances: 2
+  cpu: 1
+  memoryMiB: 512
+  concurrency: 80
