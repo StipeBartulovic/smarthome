@@ -1,0 +1,89 @@
+---
+import Base from '../layouts/Base.astro';
+import Crumbs from '../components/Crumbs.astro';
+import Photo from '../components/Photo.astro';
+
+// TODO EKP: stvarni članovi tima i fotografije
+const team = [
+  { name: 'Jure Grgić', role: 'Član uprave', c: 'var(--l1)' },
+  { name: '[IME PREZIME]', role: '[FUNKCIJA]', c: 'var(--n)' },
+  { name: '[IME PREZIME]', role: '[FUNKCIJA]', c: 'var(--l2)' },
+  { name: '[IME PREZIME]', role: '[FUNKCIJA]', c: 'var(--l3)' },
+];
+---
+<Base title="O nama" description="EKP — elektroinženjerska tvrtka iz Splita s 25 godina iskustva i uspješnim generacijskim prijenosom znanja." active="o-nama">
+  <section class="wrap" style="padding-block: 40px var(--section)">
+    <div class="stack" style="--gap: 40px">
+      <Crumbs items={[{ label: 'O nama' }]} />
+      <div class="split">
+        <div class="stack grow-2" style="--gap: 24px">
+          <p class="eyebrow"><span class="pe-mark" aria-hidden="true"></span>Elektro Klima Projekt d.o.o. · Split</p>
+          <h1 class="h1">Dvije generacije.<br /><span class="t-red">Jedna struka.</span></h1>
+          <p class="lead">EKP je elektroinženjerska tvrtka po principu „sve na jednom mjestu”. Ožičit ćemo vaš projekt bez obzira na veličinu — uz sve dozvole i certifikate koji vam trebaju.</p>
+        </div>
+        <div class="photo-frame" style="min-height: 440px; overflow: visible; border-radius: 36px">
+          <Photo name="inzenjeri" alt="Iskusni i mladi inženjer uz otvoreni razvodni ormar" eager style="position: absolute; inset: 0; border-radius: 36px" />
+          <span class="bg-ink" style="position: absolute; right: -8px; bottom: 28px; border-radius: 24px; padding: 20px 24px; display: flex; flex-direction: column"><span class="display t-yellow" style="font-size: 64px; line-height: .9">25</span><span class="small">godina inženjerstva</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-ink">
+    <div class="pe-strip" aria-hidden="true"></div>
+    <div class="wrap section stack" style="--gap: 56px">
+      <div class="split split--end">
+        <h2 class="h2 grow-2">Prošlost, sadašnjost i budućnost struke — u jednom timu.</h2>
+        <p class="lead">Naš adut je uspješan generacijski prijenos znanja, iskustva i vještina unutar tvrtke. Zato su naši inženjeri jednako doma u analognom i digitalnom.</p>
+      </div>
+      <ol class="steps" style="color: var(--paper)">
+        <li><span class="node c-l1"><i></i></span><span class="mono small muted">PROŠLOST · [GODINA OSNIVANJA]</span><strong class="h4" style="font-size: 28px">Analogno</strong><span style="color: #D6D2C8">Zanat, iskustvo s terena i razvodni ormar koji radi desetljećima.</span></li>
+        <li><span class="node c-n"><i></i></span><span class="mono small muted">SADAŠNJOST</span><strong class="h4" style="font-size: 28px">Digitalno</strong><span style="color: #D6D2C8">E-plan, BIM, pametne kuće i obnovljivi izvori — integralna rješenja s optimizacijom u stvarnom vremenu.</span></li>
+        <li><span class="node"><i style="background: var(--green); box-shadow: inset 0 0 0 10px var(--yellow)"></i></span><span class="mono small muted">BUDUĆNOST</span><strong class="h4" style="font-size: 28px">Electricity 4.0</strong><span style="color: #D6D2C8">Pametne tvornice, zgrade koje proizvode energiju i maksimalne uštede.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="wrap section grid" style="--min: 460px; --gap: 20px">
+    <div class="card" style="border-radius: 32px">
+      <span class="eyebrow"><span class="dot c-red"></span>Naša misija</span>
+      <p class="h4" style="font-weight: 600; font-size: clamp(22px, 2.4vw, 30px); line-height: 1.3">Integralni pristup svim vrstama elektroinstalacija za privatne i javne zgrade, infrastrukturu i industriju. Pametna tehnologija, podešena za maksimalnu uštedu energije, za pouzdane, robusne i svestrane sustave.</p>
+    </div>
+    <div class="card bg-red" style="border-radius: 32px">
+      <span class="eyebrow" style="color: #fff"><span class="dot c-yellow"></span>Naša vizija</span>
+      <p class="h4" style="font-weight: 600; font-size: clamp(22px, 2.4vw, 30px); line-height: 1.3">Transformirati svaku zgradu najboljim elektroinženjerskim rješenjima i postići potpunu sinergiju ljudi i prostora.</p>
+    </div>
+  </section>
+
+  <section class="bg-white borders">
+    <div class="wrap section">
+      <div class="head"><h2 class="h2">Ljudi iza prekidača</h2><p>Inženjeri i stručnjaci koji vode vaš projekt od nacrta do uporabne dozvole.</p></div>
+      <div class="grid" style="--min: 230px">
+        {team.map((m) => (
+          <div class="stack" style="--gap: 10px">
+            <div class="ph" style="aspect-ratio: 4 / 5; border-radius: 24px; background: var(--stone); align-items: flex-end; justify-content: flex-start"><span style={`width: 36px; height: 6px; border-radius: 3px; background: ${m.c}`}></span></div>
+            <strong style="font-size: 19px">{m.name}</strong>
+            <span class="muted small">{m.role}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section--tight row" style="--gap: 24px">
+    <h2 class="h4" style="flex: 1 1 240px; font-size: 30px">Certifikati i partneri</h2>
+    <div class="grid" style="flex: 3 1 600px; --min: 140px; --gap: 12px">
+      <span class="ph">[CERTIFIKAT]</span><span class="ph">[CERTIFIKAT]</span><span class="ph">[PARTNER]</span><span class="ph">[PARTNER]</span>
+    </div>
+  </section>
+
+  <section class="bg-red">
+    <div class="wrap section--tight cta">
+      <h2 class="h2">Upoznajmo se uživo.</h2>
+      <div class="actions">
+        <a class="btn btn--light btn--split" href="/kontakt">Kontakt i lokacija <span aria-hidden="true">→</span></a>
+        <a class="btn btn--ghost btn--split" href="/projekti">Naši projekti <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+</Base>

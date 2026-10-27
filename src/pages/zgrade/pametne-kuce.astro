@@ -1,0 +1,114 @@
+---
+import Base from '../../layouts/Base.astro';
+import SubNav from '../../components/SubNav.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import Photo from '../../components/Photo.astro';
+import Cta from '../../components/Cta.astro';
+
+const scenes = [
+  { key: 'jutro', time: '07:00', label: 'Jutro', lights: 'Kuhinja', blinds: 'Podignute', temp: '21 °C', sec: 'Isključena', text: 'Rolete se dižu s izlaskom sunca, pali se svjetlo u kuhinji, a vrt se zalijeva samo ako senzori javljaju da je tlo suho.' },
+  { key: 'kino', time: '21:00', label: 'Kino večer', lights: 'Prigušena', blinds: 'Spuštene', temp: '22 °C', sec: 'Isključena', text: 'Sjednete gledati film — kuća spušta rolete, prigušuje svjetla, podešava grijanje ili hlađenje i za nekoliko sekundi pretvara dnevni boravak u kino.' },
+  { key: 'van', time: '09:30', label: 'Nitko nije doma', lights: 'Ugašena', blinds: 'Spuštene', temp: '18 °C eco', sec: 'Uključena', text: 'Kad zadnji ukućanin ode, kuća provjeri brave, prozore i sigurnosni sustav te prilagodi grijanje ili hlađenje. Senzori pokreta i obavijesti rade 24/7.' },
+  { key: 'dolazak', time: '17:45', label: 'Dolazak kući', lights: 'Ulaz, dnevni', blinds: 'Podignute', temp: '22 °C', sec: 'Isključena', text: 'Kad primijeti da se približavate, kuća se pripremi za vaš dolazak — svjetla, temperatura i brava su spremni.' },
+];
+const features = [
+  { c: 'var(--red)', t: 'Grijanje i hlađenje', d: 'Savršena, prilagodljiva regulacija temperature i vlage. Uređaji se pale i gase sami kad su uvjeti ispunjeni.' },
+  { c: 'var(--yellow)', t: 'Umjetno i prirodno svjetlo', d: 'Rasvjeta i automatske rolete usklađene s vašim željama, dobom dana, izlaskom i zalaskom sunca ili pokretom.' },
+  { c: 'var(--n)', t: 'Zabava', d: 'Cijeli kućni sustav zabave — TV, zvučnici — jednim upravljačem ili glasom.' },
+  { c: 'var(--ink)', t: 'Sigurnost i vatrodojava', d: 'Praćenje pokreta, video nadzor, pametna brava, obavijesti 24/7 i daljinsko zaključavanje.' },
+  { c: 'var(--green)', t: 'Vrt, dvorište, terasa i bazen', d: 'Tende, vanjska rasvjeta, bazen i navodnjavanje — voda samo kad je tlu potrebna.' },
+  { c: 'var(--l1)', t: 'Kućni hub', d: 'Vaš digitalni asistent: kalendar, pozivi, obavijesti i upravljanje svim pametnim uređajima.' },
+  { c: 'var(--l3)', t: 'Pametno u svako doba', d: 'Kuća uči vaše navike i prilagođava se radnim danima i vikendima, ljetu i zimi, danu i noći.' },
+];
+---
+<Base title="Pametne kuće" description="Pametna kuća po mjeri: grijanje i hlađenje, rasvjeta, zabava, sigurnost, vrt i bazen — projekt i ugradnja." active="usluge">
+  <SubNav active="pametne" />
+
+  <section class="wrap" style="padding-block: 40px 48px">
+    <div class="stack" style="--gap: 28px">
+      <Crumbs items={[{ label: 'Zgrade', href: '/zgrade' }, { label: 'Pametne kuće' }]} />
+      <div class="split split--end">
+        <div class="stack grow-2" style="--gap: 20px">
+          <span class="eyebrow"><span class="dot c-l1"></span>L1 · Zgrade · Pametne kuće</span>
+          <h1 class="h1">Vaša zgrada.<br /><span class="t-blue">Vaša pravila.</span></h1>
+        </div>
+        <p class="lead">Više od udobnosti ili tehnološke mode: pametna kuća znači više slobodnog vremena za obitelj, sigurnost kad ste doma i kad niste — i niže račune za energiju.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCENARIJI -->
+  <section class="wrap" style="padding-bottom: var(--section)">
+    <div class="home-scenes bg-ink split" data-state-group data-state="kino" style="border-radius: 36px; padding: clamp(18px, 3vw, 40px)">
+      <div class="stack" style="--gap: 20px">
+        <p class="eyebrow t-yellow">Isprobajte scenarij</p>
+        <div class="scene-btns" role="group" aria-label="Scenariji pametne kuće">
+          {scenes.map((s) => <button type="button" data-set={s.key} aria-pressed="false"><span class="tm">{s.time}</span>{s.label}</button>)}
+        </div>
+        {scenes.map((s) => (
+          <div class="stack" data-show={s.key} hidden style="--gap: 16px">
+            <p style="color: #D6D2C8; font-size: 18px; min-height: 5.6em">{s.text}</p>
+            <dl class="readout">
+              <div><dt>SVJETLA</dt><dd>{s.lights}</dd></div>
+              <div><dt>ROLETE</dt><dd>{s.blinds}</dd></div>
+              <div><dt>TEMPERATURA</dt><dd>{s.temp}</dd></div>
+              <div><dt>ZAŠTITA</dt><dd>{s.sec}</dd></div>
+            </dl>
+          </div>
+        ))}
+      </div>
+      <div class="stage-svg grow-2" style="background: #CFE0C6">
+        <svg viewBox="0 0 600 440" role="img" aria-label="Tlocrt pametne kuće; svjetla, rolete, TV, brava i navodnjavanje mijenjaju se prema scenariju">
+          <rect class="armed" x="28" y="28" width="424" height="364" rx="10" fill="none" stroke="#A51C24" stroke-width="3" stroke-dasharray="10 8" />
+          <rect x="470" y="290" width="110" height="130" rx="10" fill="#7FB3E6" stroke="#16181B" stroke-width="2.5" />
+          <circle cx="520" cy="110" r="44" fill="#2F8F46" fill-opacity=".35" />
+          <circle cx="520" cy="110" r="6" fill="#16181B" />
+          <g class="water" fill="#2D6CC0"><circle cx="500" cy="96" r="4" /><circle cx="540" cy="92" r="4" /><circle cx="506" cy="128" r="4" /><circle cx="538" cy="126" r="4" /></g>
+          <rect x="40" y="40" width="400" height="340" fill="#fff" />
+          <rect class="room r-liv" x="40" y="40" width="240" height="180" />
+          <rect class="room r-kit" x="280" y="40" width="160" height="180" />
+          <rect class="room r-bed" x="40" y="220" width="200" height="160" />
+          <rect class="room r-ent" x="240" y="220" width="200" height="160" />
+          <rect x="40" y="40" width="400" height="340" fill="none" stroke="#16181B" stroke-width="5" />
+          <path d="M280 40v150M40 220h160M270 220h170M240 250v130" stroke="#16181B" stroke-width="4" />
+          <path class="blind" d="M80 40h140M310 40h100M40 260v80" stroke-width="9" />
+          <rect class="tv" x="70" y="56" width="100" height="10" rx="2" fill="#16181B" />
+          <path class="tvglow" d="M70 66h100l20 54H50z" fill="#2D6CC0" fill-opacity=".25" />
+          <g fill="#E9E4D8" stroke="#16181B" stroke-width="2"><rect x="70" y="160" width="130" height="34" rx="10" /><rect x="292" y="52" width="136" height="26" rx="3" /><rect x="70" y="256" width="110" height="96" rx="8" /></g>
+          <rect x="268" y="240" width="96" height="52" rx="10" fill="#16181B" />
+          {scenes.map((s) => <text data-show={s.key} x="316" y="274" text-anchor="middle" fill="#F2C318" font-family="Archivo Variable, sans-serif" font-weight="800" font-size="22">{s.temp.split(' ')[0]}°</text>)}
+          <rect class="door" x="318" y="372" width="56" height="16" rx="3" stroke="#16181B" stroke-width="2" />
+          <g font-family="IBM Plex Mono, monospace" font-size="11" fill="#55524B"><text x="56" y="210">DNEVNI</text><text x="296" y="210">KUHINJA</text><text x="56" y="370">SPAVAĆA</text><text x="256" y="370">ULAZ</text><text x="484" y="412" fill="#16181B">BAZEN</text><text x="490" y="176" fill="#16181B">VRT</text></g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" style="padding-bottom: var(--section)">
+    <div class="head">
+      <h2 class="h2">Sve što kuća može sama.</h2>
+      <p>Naši stručnjaci projektiraju i ugrađuju pametne funkcije po vašoj želji.</p>
+    </div>
+    <div class="split split--top">
+      <div class="grid grow-2" style="--min: 260px">
+        {features.map((f, i) => (
+          <div class="card card--top" style={`--c: ${f.c}`}><div class="bar"></div><div class="body"><span class="mono small muted">{String(i + 1).padStart(2, '0')}</span><strong class="h4">{f.t}</strong><span style="color: var(--ink-2)">{f.d}</span></div></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-blue">
+    <div class="wrap split" style="padding-block: clamp(56px, 7vw, 96px)">
+      <div class="photo-frame" style="min-height: 340px"><Photo name="interijer" alt="Dnevni boravak pametne kuće s prigušenom rasvjetom i zidnim upravljačem" style="position: absolute; inset: 0" /></div>
+      <div class="grid" style="--min: 200px; --gap: 28px">
+        <div class="stack" style="--gap: 6px"><span class="h3">Udobnost</span><span style="color: #DCE7F7">Bez premca, za cijelu obitelj.</span></div>
+        <div class="stack" style="--gap: 6px"><span class="h3">Vrijeme</span><span style="color: #DCE7F7">Više slobodnog vremena, manje sitnih briga.</span></div>
+        <div class="stack" style="--gap: 6px"><span class="h3">Sigurnost</span><span style="color: #DCE7F7">Kad ste doma i kad niste.</span></div>
+        <div class="stack" style="--gap: 6px"><span class="h3">Ušteda</span><span style="color: #DCE7F7">Učinkovitiji uređaji, niži računi i manji otisak.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <Cta title="Recite nam kako živite. Mi ćemo to ožičiti." />
+</Base>

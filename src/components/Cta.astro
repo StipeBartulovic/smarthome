@@ -1,0 +1,15 @@
+---
+import { contact } from '../data/site';
+interface Props { title: string; tone?: 'red' | 'ink'; secondary?: { label: string; href: string } }
+const { title, tone = 'red', secondary = { label: 'Pošaljite upit', href: '/kontakt' } } = Astro.props;
+---
+<section class:list={[tone === 'red' ? 'bg-red' : 'bg-ink']}>
+  {tone === 'ink' && <div class="pe-strip" aria-hidden="true"></div>}
+  <div class="wrap section--tight cta">
+    <h2 class="h2">{title}</h2>
+    <div class="actions">
+      <a class:list={['btn btn--split', tone === 'red' ? 'btn--light' : 'btn--red']} href={contact.phoneHref}>Nazovite <span class="mono">{contact.phoneShort}</span></a>
+      <a class:list={['btn btn--split btn--ghost', tone === 'ink' && 'btn--ghost-dark']} href={secondary.href}>{secondary.label} <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>

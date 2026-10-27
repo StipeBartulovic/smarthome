@@ -1,0 +1,94 @@
+---
+import '@fontsource-variable/archivo/wdth.css';
+import '@fontsource/ibm-plex-sans/400.css';
+import '@fontsource/ibm-plex-sans/500.css';
+import '@fontsource/ibm-plex-sans/600.css';
+import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource/ibm-plex-mono/500.css';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  active?: 'usluge' | 'projekti' | 'o-nama' | 'kontakt' | 'home';
+  bodyClass?: string;
+}
+const { title, description = 'EKP — elektroinženjering iz Splita. Projekt, dozvole, izvedba i održavanje elektroinstalacija za zgrade, obnovljive izvore, industriju i promet.', active, bodyClass } = Astro.props;
+const fullTitle = title === 'EKP' ? 'EKP — Mi ožičimo. Vi samo uključite.' : `${title} — EKP`;
+---
+<!doctype html>
+<html lang="hr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#16181B" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body class={bodyClass}>
+    <a class="skip" href="#main">Preskoči na sadržaj</a>
+    <Header active={active} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<script>
+  // Generički „prekidač stanja“: [data-state-group] + gumbi [data-set] + paneli [data-show].
+  // Stanje ide u data-state na korijenu, pa CSS sam crta ilustracije (bez re-rendera).
+  document.querySelectorAll<HTMLElement>('[data-state-group]').forEach((root) => {
+    const buttons = root.querySelectorAll<HTMLButtonElement>('[data-set]');
+    const panels = root.querySelectorAll<HTMLElement>('[data-show]');
+    const apply = (value: string) => {
+      root.dataset.state = value;
+      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.set === value)));
+      // toggleAttribute radi i za SVG elemente (npr. <text>), za razliku od .hidden
+      panels.forEach((p) => p.toggleAttribute('hidden', p.dataset.show !== value));
+      // filter: [data-match="a b"] se prikazuje ako sadrži vrijednost (ili je vrijednost "all")
+      let shown = 0;
+      root.querySelectorAll<HTMLElement>('[data-match]').forEach((el) => {
+        const ok = value === 'all' || (el.dataset.match ?? '').split(' ').includes(value);
+        el.toggleAttribute('hidden', !ok);
+        if (ok) shown++;
+      });
+      root.querySelectorAll<HTMLElement>('[data-count]').forEach((c) => { c.textContent = String(shown); });
+      const target = root.querySelector<HTMLTextAreaElement>('[data-placeholder-target]');
+      const btn = root.querySelector<HTMLButtonElement>(`[data-set="${value}"]`);
+      if (target && btn?.dataset.placeholder) target.placeholder = btn.dataset.placeholder;
+      root.querySelectorAll<HTMLInputElement>('[data-state-input]').forEach((i) => { i.value = btn?.dataset.label ?? value; });
+    };
+    buttons.forEach((b) => b.addEventListener('click', () => apply(b.dataset.set!)));
+    apply(root.dataset.state ?? buttons[0]?.dataset.set ?? '');
+  });
+
+  // Obrasci: šalju na PUBLIC_FORM_ENDPOINT ako je postavljen, inače otvaraju e-mail klijent.
+  const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT as string | undefined;
+  document.querySelectorAll<HTMLFormElement>('form[data-form]').forEach((form) => {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+      const data = Object.fromEntries(new FormData(form).entries());
+      data.izvor = form.dataset.form ?? 'web';
+      const ok = form.querySelector<HTMLElement>('[data-form-ok]');
+      if (endpoint) {
+        try {
+          const r = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(data) });
+          if (!r.ok) throw new Error(String(r.status));
+        } catch {
+          alert('Slanje nije uspjelo. Nazovite nas na 021 542 106 ili pišite na ekp@ekp.hr.');
+          return;
+        }
+      } else {
+        const body = Object.entries(data).map(([k, v]) => `${k}: ${v}`).join('\n');
+        window.location.href = `mailto:ekp@ekp.hr?subject=${encodeURIComponent('Upit s weba — ' + data.izvor)}&body=${encodeURIComponent(body)}`;
+      }
+      form.reset();
+      if (ok) ok.hidden = false;
+    });
+  });
+</script>

@@ -1,0 +1,23 @@
+{
+  "name": "ekp-web",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "deploy": "astro build && firebase deploy --only hosting"
+  },
+  "dependencies": {
+    "@fontsource-variable/archivo": "^5.2.5",
+    "@fontsource/ibm-plex-mono": "^5.2.5",
+    "@fontsource/ibm-plex-sans": "^5.2.5",
+    "astro": "^5.7.0",
+    "firebase": "^13.1.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "typescript": "^5.9.3"
+  }
+}

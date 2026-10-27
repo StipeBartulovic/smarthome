@@ -1,0 +1,18 @@
+---
+interface Props { active: 'instalacije' | 'fotonapon' | 'vatrodojava' | 'pametne' }
+const { active } = Astro.props;
+const items = [
+  { key: 'instalacije', label: 'Elektroinstalacije', href: '/zgrade' },
+  { key: 'fotonapon', label: 'Fotonaponski sustavi', href: '/zgrade/fotonapon' },
+  { key: 'vatrodojava', label: 'Vatrodojava', href: '/zgrade/vatrodojava' },
+  { key: 'pametne', label: 'Pametne kuće', href: '/zgrade/pametne-kuce' },
+];
+---
+<nav class="subnav" aria-label="Zgrade">
+  <div class="wrap">
+    <a class="home" href="/zgrade"><span class="dot c-l1"></span><span class="mono small muted" style="font-weight:400">L1</span>Zgrade</a>
+    <div class="pills">
+      {items.map((i) => <a href={i.href} aria-current={i.key === active ? 'page' : undefined}>{i.label}</a>)}
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,199 @@
+---
+import Base from '../layouts/Base.astro';
+import Photo, { type PhotoName } from '../components/Photo.astro';
+import Cta from '../components/Cta.astro';
+import Building from '../components/ill/Building.astro';
+import House from '../components/ill/House.astro';
+import Factory from '../components/ill/Factory.astro';
+import Road from '../components/ill/Road.astro';
+
+const breakers: { key: string; code: string; area: string; short: string; label: string; href: string; photo: PhotoName; alt: string; text: string }[] = [
+  { key: 'l1', code: 'L1', area: 'var(--l1)', short: 'Zgrade', label: 'Zgrade', href: '/zgrade', photo: 'interijer', alt: 'Dnevni boravak pametne kuće s prigušenom rasvjetom', text: 'Kuće, stanovi, vile i javne zgrade — od priključka na mrežu do pametne kuće.' },
+  { key: 'n', code: 'N', area: 'var(--n)', short: 'Obnovljivi', label: 'Obnovljivi izvori', href: '/obnovljivi-izvori', photo: 'krov', alt: 'Kamena kuća sa solarnim panelima na krovu', text: 'Fotonapon, baterije i punionice — posebno za vaš dom i za tvrtke.' },
+  { key: 'l2', code: 'L2', area: 'var(--l2)', short: 'Industrija', label: 'Industrija', href: '/industrija', photo: 'pogon', alt: 'Inženjer uz upravljački ormar u pogonu', text: 'Pametne tvornice, E-plan i BIM, Electricity 4.0.' },
+  { key: 'l3', code: 'L3', area: 'var(--l3)', short: 'Promet', label: 'Promet', href: '/promet', photo: 'cesta', alt: 'Obalna cesta s uličnom rasvjetom u sumrak', text: 'Električna infrastruktura cesta — izgradnja, servis i održavanje.' },
+  { key: 'pe', code: 'PE', area: 'var(--pe-sm)', short: 'Dozvole', label: 'Dozvole i sigurnost', href: '/kontakt', photo: 'inzenjeri', alt: 'Iskusni i mladi inženjer uz razvodni ormar', text: 'Studije, dozvole i certifikati uključeni su u svaki projekt.' },
+];
+---
+<Base title="EKP" active="home">
+  <!-- HERO + RAZVODNA PLOČA -->
+  <section class="wrap" style="padding-block: clamp(36px, 6vw, 80px) clamp(56px, 7vw, 88px)">
+    <div class="split">
+      <div class="stack" style="--gap: 26px">
+        <p class="eyebrow"><span class="pe-mark" aria-hidden="true"></span>Elektroinženjering · Split · 25 godina</p>
+        <h1 class="h1">Mi ožičimo.<br /><span class="t-red">Vi samo uključite.</span></h1>
+        <p class="lead">Projekt, dozvole, izvedba i održavanje elektroinstalacija — za kuće, zgrade, obnovljive izvore, industriju i promet. Jedan partner od prvog nacrta do prvog prekidača.</p>
+        <div class="row">
+          <a class="btn btn--red" href="/kontakt">Zatraži ponudu <span aria-hidden="true">→</span></a>
+          <a class="btn btn--ghost" href="#usluge">Pronađite uslugu</a>
+        </div>
+      </div>
+
+      <div class="board" data-state-group data-state="l1">
+        <div class="board-top">
+          <span class="eyebrow" style="font-size: 12px">Razvodna ploča · odaberite uslugu</span>
+          <span class="board-hint">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11V5a2 2 0 0 1 4 0v6M13 9a2 2 0 0 1 4 0v3M17 11a2 2 0 0 1 4 0v4a6 6 0 0 1-6 6h-2a6 6 0 0 1-5-2.7L4.6 15a2 2 0 0 1 3.2-2.4L9 14" /></svg>
+            Kliknite prekidač
+          </span>
+        </div>
+        <div class="breakers" role="group" aria-label="Odaberite uslugu">
+          {breakers.map((b) => (
+            <button type="button" class="breaker" data-set={b.key} aria-pressed="false" style={`--c: ${b.area}`}>
+              <span class="stripe"></span>
+              <span class="code">{b.code}</span>
+              <span class="slot" aria-hidden="true"><span class="lever"></span></span>
+              <span class="state"><span class="led"></span></span>
+              <span class="name">{b.short}</span>
+            </button>
+          ))}
+        </div>
+        {breakers.map((b, i) => (
+          <a class="board-card" href={b.href} data-show={b.key} hidden={i !== 0}>
+            <span class="img"><Photo name={b.photo} alt={b.alt} sizes="(max-width: 860px) 100vw, 320px" eager={i === 0} /></span>
+            <span class="txt">
+              <span class="on">{b.code} · UKLJUČENO</span>
+              <strong class="h4" style="font-size: 24px">{b.label}</strong>
+              <span class="small" style="color: var(--ink-2); font-size: 15px">{b.text}</span>
+              <span class="go">Otvori →</span>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- BROJKE -->
+  <section class="bg-ink" aria-label="EKP u brojkama">
+    <div class="pe-strip" aria-hidden="true"></div>
+    <div class="wrap grid" style="--min: 200px; --gap: 32px; padding-block: 48px">
+      <div class="stat"><b>25</b><span>godina na tržištu, dvije generacije inženjera</span></div>
+      <div class="stat"><b>[BROJ]</b><span>realiziranih projekata</span></div>
+      <div class="stat"><b>1</b><span>kontakt za projekt, dozvole i izvedbu</span></div>
+      <div class="stat"><b>0</b><span>papirologije na vama</span></div>
+    </div>
+  </section>
+
+  <!-- USLUGE -->
+  <section id="usluge" class="wrap section">
+    <div class="head">
+      <div class="stack" style="--gap: 16px">
+        <p class="eyebrow eyebrow--red">Usluge</p>
+        <h2 class="h2">Od utičnice do autoceste.</h2>
+      </div>
+      <p>Svako područje ima svoje stranice — i posebne dijelove za kućanstva, tvrtke i javni sektor.</p>
+    </div>
+    <div class="grid" style="--min: 520px; --gap: 20px">
+      <article class="portal" style="--tint: var(--stone)">
+        <div class="art"><Building /></div>
+        <div class="body">
+          <span class="eyebrow"><span class="dot c-l1"></span>L1 · Zgrade</span>
+          <h3 class="h3">Ožičeno od temelja do krova.</h3>
+          <nav aria-label="Zgrade">
+            <a href="/zgrade">Elektroinstalacije</a>
+            <a href="/zgrade/fotonapon">Fotonaponski sustavi</a>
+            <a href="/zgrade/vatrodojava">Vatrodojava</a>
+            <a href="/zgrade/pametne-kuce">Pametne kuće</a>
+          </nav>
+        </div>
+      </article>
+      <article class="portal" style="--tint: var(--sand)">
+        <div class="art"><House wind /></div>
+        <div class="body">
+          <span class="eyebrow"><span class="dot c-n"></span>N · Obnovljivi izvori</span>
+          <h3 class="h3">Od potrošača do proizvođača.</h3>
+          <nav aria-label="Obnovljivi izvori">
+            <a href="/obnovljivi-izvori/za-dom"><span class="row" style="--gap: 10px"><span class="tag bg-sand">DOM</span>Obnovljivi izvori za vaš dom</span></a>
+            <a href="/obnovljivi-izvori/za-tvrtke"><span class="row" style="--gap: 10px"><span class="tag bg-ink">B2B</span>Za tvrtke i javne zgrade</span></a>
+            <a href="/obnovljivi-izvori">Sve o obnovljivim izvorima</a>
+          </nav>
+        </div>
+      </article>
+      <article class="portal" style="--tint: var(--cool-2)">
+        <div class="art"><Factory /></div>
+        <div class="body">
+          <span class="eyebrow"><span class="dot c-l2"></span>L2 · Industrija</span>
+          <h3 class="h3">Pogon koji ne staje.</h3>
+          <nav aria-label="Industrija">
+            <a href="/industrija">Pametne tvornice</a>
+            <a href="/industrija#softver">E-plan i BIM projektiranje</a>
+          </nav>
+        </div>
+      </article>
+      <article class="portal" style="--tint: var(--night)">
+        <div class="art"><Road /></div>
+        <div class="body">
+          <span class="eyebrow"><span class="dot c-l3"></span>L3 · Promet</span>
+          <h3 class="h3">Svjetlo na svakom kilometru.</h3>
+          <nav aria-label="Promet"><a href="/promet">Cestovna infrastruktura</a></nav>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ZA KOGA -->
+  <section id="za-koga" class="bg-white borders">
+    <div class="wrap section">
+      <div class="head"><div class="stack" style="--gap: 16px"><p class="eyebrow eyebrow--red">Za koga radimo</p><h2 class="h2">Pronađite se.</h2></div></div>
+      <div class="grid" style="--min: 250px">
+        <a class="card card--paper" href="/obnovljivi-izvori/za-dom">
+          <span class="icon c-red"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7M5 10v10h14V10M10 20v-6h4v6" /></svg></span>
+          <span class="h4">Vlasnici kuća i stanova</span>
+          <span style="color: var(--ink-2)">Jedan kontakt za instalacije, solar i pametnu kuću. Bez papirologije i bez deset majstora.</span>
+          <span class="more">Za vaš dom →</span>
+        </a>
+        <a class="card card--paper" href="/kontakt">
+          <span class="icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F2C318" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20L12 4l8 16M7 14h10" /><circle cx="12" cy="4" r="1.5" /></svg></span>
+          <span class="h4">Arhitekti i investitori</span>
+          <span style="color: var(--ink-2)">Projekti u E-planu i BIM-u, usklađeni s ostalim strukama i vašim rokovima.</span>
+          <span class="more">Pošaljite projekt →</span>
+        </a>
+        <a class="card card--paper" href="/obnovljivi-izvori/za-tvrtke">
+          <span class="icon c-green"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20V10l5 3V10l5 3V6h4v14zM3 20h18" /></svg></span>
+          <span class="h4">Tvrtke i industrija</span>
+          <span style="color: var(--ink-2)">Pouzdan pogon, manje zastoja i niži računi za energiju — uz vlastitu proizvodnju struje.</span>
+          <span class="more">Za tvrtke →</span>
+        </a>
+        <a class="card card--paper" href="/obnovljivi-izvori/za-tvrtke">
+          <span class="icon c-yellow"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#16181B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-5 9 5M5 9v9M9.5 9v9M14.5 9v9M19 9v9M3 20h18" /></svg></span>
+          <span class="h4">Javni sektor</span>
+          <span style="color: var(--ink-2)">Javne zgrade, ceste i obnovljivi izvori — uz pomoć pri prijavi na nacionalne i EU fondove.</span>
+          <span class="more">Za javne zgrade →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJEKTI -->
+  <section id="projekti" class="bg-ink">
+    <div class="wrap section">
+      <div class="head">
+        <div class="stack" style="--gap: 16px"><p class="eyebrow t-yellow">Projekti</p><h2 class="h2">Ožičeno. Uključeno. Radi.</h2></div>
+        <a class="btn btn--ghost btn--ghost-dark" href="/projekti">Svi projekti <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="grid" style="--min: 280px">
+        <a class="proj" href="/projekti"><Photo name="nadstresnica" alt="Solarna nadstrešnica s punionicama na poslovnom parkiralištu" sizes="(max-width: 860px) 100vw, 33vw" /><span class="meta"><span class="eyebrow" style="font-size: 12px"><span class="dot dot--sm c-n"></span>Obnovljivi · tvrtka</span><span class="h4">[NAZIV PROJEKTA]</span><span class="mono small muted">[LOKACIJA] · [kWp]</span></span></a>
+        <a class="proj" href="/projekti"><Photo name="interijer" alt="Dnevni boravak pametne kuće" sizes="(max-width: 860px) 100vw, 33vw" /><span class="meta"><span class="eyebrow" style="font-size: 12px"><span class="dot dot--sm c-l1"></span>Zgrade · pametna kuća</span><span class="h4">[NAZIV PROJEKTA]</span><span class="mono small muted">[LOKACIJA] · [m²]</span></span></a>
+        <a class="proj" href="/projekti"><Photo name="krov" alt="Kamena kuća sa solarnim panelima na krovu" sizes="(max-width: 860px) 100vw, 33vw" /><span class="meta"><span class="eyebrow" style="font-size: 12px"><span class="dot dot--sm c-n"></span>Obnovljivi · dom</span><span class="h4">[NAZIV PROJEKTA]</span><span class="mono small muted">[LOKACIJA] · [kWp]</span></span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- O NAMA -->
+  <section class="wrap section">
+    <div class="split">
+      <div class="photo-frame" style="min-height: 420px">
+        <Photo name="inzenjeri" alt="Iskusni i mladi inženjer uz otvoreni razvodni ormar" style="position: absolute; inset: 0" />
+        <span class="bg-red" style="position: absolute; left: 24px; bottom: 24px; border-radius: 20px; padding: 16px 20px; font-family: var(--f-display); font-stretch: 112%; font-weight: 800; font-size: 34px; line-height: 1">25 godina</span>
+      </div>
+      <div class="stack" style="--gap: 22px">
+        <p class="eyebrow eyebrow--red">O nama</p>
+        <h2 class="h2">Dvije generacije. Jedna struka.</h2>
+        <p class="lead">Uspješan generacijski prijenos znanja čini nas jednako dobrima u analognom i digitalnom — od klasičnog razvodnog ormara do BIM modela i pametne tvornice.</p>
+        <a class="btn btn--ghost" href="/o-nama" style="align-self: flex-start">Upoznajte nas <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <Cta title="Imate projekt? Spojimo ga." />
+</Base>

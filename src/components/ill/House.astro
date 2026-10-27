@@ -1,0 +1,42 @@
+---
+interface Props { wind?: boolean; car?: boolean; label?: string }
+const { wind = false, car = true, label } = Astro.props;
+---
+<svg viewBox="0 0 600 380" role="img" aria-label="Ilustracija: kuća sa solarnim panelima, kućnom baterijom i električnim autom na punjenju">
+  <circle cx="500" cy="80" r="42" fill="#F2C318" />
+  <g stroke="#E8B300" stroke-width="5" stroke-linecap="round"><path d="M500 16v12M564 80h-12M436 80h12M546 34l-9 9M454 34l9 9" /></g>
+  <rect y="330" width="600" height="50" fill="#D9C98F" />
+  {wind ? (
+    <g>
+      <path d="M90 330V124" stroke="#16181B" stroke-width="5" />
+      <g fill="#fff" stroke="#16181B" stroke-width="2.5" stroke-linejoin="round">
+        <path d="M90 120l-6-80h12zM90 120l66 38-6 10zM90 120l-66 38 6 10z" />
+      </g>
+      <circle cx="90" cy="120" r="8" fill="#A51C24" stroke="#16181B" stroke-width="2" />
+    </g>
+  ) : (
+    <g><path d="M80 330v-58" stroke="#16181B" stroke-width="5" /><circle cx="80" cy="254" r="36" fill="#2F8F46" /></g>
+  )}
+  <rect x="150" y="200" width="240" height="130" fill="#fff" stroke="#16181B" stroke-width="3" />
+  <path d="M130 206L270 110l140 96z" fill="#A51C24" stroke="#16181B" stroke-width="3" stroke-linejoin="round" />
+  <path d="M290 126l90 62-18 8-90-62z" fill="#26344F" stroke="#16181B" stroke-width="2" />
+  <path d="M335 157l-18 8M311 141l-18 8" stroke="#7FA3D9" stroke-width="2" />
+  <rect x="180" y="238" width="56" height="44" fill="#F2C318" stroke="#16181B" stroke-width="2" />
+  <rect x="290" y="258" width="44" height="72" fill="#16181B" />
+  <rect x="346" y="264" width="34" height="54" rx="6" fill="#2F8F46" stroke="#16181B" stroke-width="2.5" />
+  <path d="M366 276l-8 16h10l-8 16" fill="none" stroke="#F2C318" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+  {car && (
+    <g>
+      <path d="M380 300q30 0 56 22" fill="none" stroke="#16181B" stroke-width="3" />
+      <path d="M430 330l8-28q4-10 16-10h50q12 0 18 10l12 28z" fill="#2D6CC0" stroke="#16181B" stroke-width="2.5" stroke-linejoin="round" />
+      <circle cx="452" cy="332" r="12" fill="#16181B" /><circle cx="514" cy="332" r="12" fill="#16181B" />
+    </g>
+  )}
+  {label && (
+    <g>
+      <rect x="24" y="30" width="200" height="70" rx="18" fill="#fff" stroke="#16181B" stroke-width="2.5" />
+      <text x="42" y="58" fill="#55524B" font-family="IBM Plex Mono, monospace" font-size="11">{label}</text>
+      <text x="42" y="88" fill="#16181B" font-family="Archivo Variable, sans-serif" font-weight="800" font-size="24">[X] kWh</text>
+    </g>
+  )}
+</svg>

@@ -1,0 +1,123 @@
+---
+import Base from '../../layouts/Base.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import Carport from '../../components/ill/Carport.astro';
+import Photo from '../../components/Photo.astro';
+import { contact } from '../../data/site';
+
+const segs = [
+  { key: 'tvrtka', label: 'Tvrtka', kicker: 'Za tvrtke', title: 'Niži troškovi energije i odgovornost koja se vidi.', text: 'Vlastita proizvodnja struje smanjuje račune i ovisnost o tržištu energije, a kupcima i partnerima pokazuje da ozbiljno shvaćate održivost.', points: ['Fotonapon na krovu, fasadi ili parkiralištu', 'Baterijska pohrana i nadogradnja postojećih sustava', 'Punionice za vozila', 'Procjena proizvodnje i povrata investicije'] },
+  { key: 'ustanova', label: 'Javna ustanova', kicker: 'Za javne ustanove', title: 'Javne zgrade koje proizvode vlastitu energiju.', text: 'Javne zgrade često imaju velike krovove i stalnu potrošnju. Preuzimamo dokumentaciju i koordinaciju s nadležnim tijelima.', points: ['Projektna dokumentacija i sve dozvole', 'Prijava na nacionalne i EU fondove', 'Nadzor projekta', 'Dugoročno održavanje'] },
+  { key: 'opcina', label: 'Općina / grad', kicker: 'Za jedinice lokalne samouprave', title: 'Vodite primjerom u svojoj zajednici.', text: 'Općine i gradovi mogu preuzeti vodstvo u ostvarivanju ciljeva obnovljive energije — od javnih zgrada do zajedničkih elektrana.', points: ['Sustavi za javne zgrade', 'Zajedničke elektrane', 'Solarne nadstrešnice s punionicama', 'Pomoć u pripremi projekata za sufinanciranje'] },
+];
+---
+<Base title="Obnovljivi izvori za tvrtke i javne zgrade" description="Obnovljivi izvori za tvrtke, javne ustanove i jedinice lokalne samouprave — kombinirani sustavi, pohrana, solarne nadstrešnice." active="usluge" bodyClass="bg-cool">
+  <section class="bg-ink">
+    <div class="wrap stack" style="padding-block: 28px var(--section); --gap: 40px">
+      <div class="row" style="justify-content: space-between">
+        <Crumbs items={[{ label: 'Obnovljivi izvori', href: '/obnovljivi-izvori' }, { label: 'Za tvrtke i javne zgrade' }]} />
+        <nav class="audience audience--dark" aria-label="Odaberite publiku">
+          <a href="/obnovljivi-izvori/za-dom">Za vaš dom</a>
+          <a href="/obnovljivi-izvori/za-tvrtke" aria-current="page">Za tvrtke i javne zgrade</a>
+        </nav>
+      </div>
+      <div class="split">
+        <div class="stack" style="--gap: 24px">
+          <span class="tag bg-blue" style="align-self: flex-start">ZA TVRTKE I JAVNE ZGRADE</span>
+          <h1 class="h1 wide">Energija kao<br /><span class="t-yellow">strategija.</span></h1>
+          <p class="lead">Obnovljivi izvori jedan su od najvažnijih oblika društveno odgovornog poslovanja. Vaša tvrtka, općina ili ustanova može preuzeti vodstvo — i pritom smanjiti troškove energije.</p>
+          <div class="row">
+            <a class="btn btn--red" href="#sastanak">Dogovorite sastanak <span aria-hidden="true">→</span></a>
+            <a class="btn btn--ghost btn--ghost-dark" href="#">Referentna lista [PDF]</a>
+          </div>
+        </div>
+        <div class="ill" style="border-radius: 32px"><Carport /></div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-label="Klijenti" style="border-bottom: 1px solid #D3D9DE">
+    <div class="wrap row" style="padding-block: 28px; --gap: 16px 32px">
+      <span class="eyebrow" style="font-size: 12px">Vjeruju nam</span>
+      {['[LOGO KLIJENTA]', '[LOGO KLIJENTA]', '[OPĆINA / GRAD]', '[JAVNA USTANOVA]'].map((l) => <span class="ph" style="flex: 1 1 120px; min-height: 44px; padding: 8px">{l}</span>)}
+    </div>
+  </section>
+
+  <section class="wrap section" data-state-group data-state="tvrtka">
+    <div class="head">
+      <h2 class="h2 wide">Vi ste…</h2>
+      <div class="seg" role="group" aria-label="Vrsta organizacije">
+        {segs.map((s) => <button type="button" data-set={s.key} aria-pressed="false">{s.label}</button>)}
+      </div>
+    </div>
+    {segs.map((s) => (
+      <div class="card" data-show={s.key} hidden style="border-radius: 32px; padding: clamp(28px, 4vw, 48px)">
+       <div class="split split--top">
+        <div class="stack" style="--gap: 16px">
+          <span class="eyebrow t-blue">{s.kicker}</span>
+          <h3 class="h3 wide">{s.title}</h3>
+          <p style="color: #3A3F44">{s.text}</p>
+        </div>
+        <ul class="lines">
+          {s.points.map((p) => <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2F8F46" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; transform: translateY(4px)"><path d="M4 12l6 6L20 6" /></svg><span style="font-weight: 500">{p}</span></li>)}
+        </ul>
+       </div>
+      </div>
+    ))}
+  </section>
+
+  <section class="bg-white" style="border-block: 1px solid #D3D9DE">
+    <div class="wrap section">
+      <div class="head">
+        <div class="stack" style="--gap: 16px"><p class="eyebrow t-blue">Kombinirani sustavi</p><h2 class="h2 wide">Spojite izvore za optimalan rezultat.</h2></div>
+        <p>Naša pametna energetska rješenja kombiniraju više izvora i pohranu u jedan sustav.</p>
+      </div>
+      <div class="grid" style="--min: 240px">
+        <div class="card card--top card--line c-n"><div class="bar"></div><div class="body"><strong class="h4">Fotonapon</strong><span class="muted">Na krovu, fasadi ili kao nadstrešnica — proizvodi i za oblačnih dana.</span></div></div>
+        <div class="card card--top card--line c-red"><div class="bar"></div><div class="body"><strong class="h4">Solarni toplinski sustavi</strong><span class="muted">Sunce za grijanje i potrošnu toplu vodu.</span></div></div>
+        <div class="card card--top card--line c-l3"><div class="bar"></div><div class="body"><strong class="h4">Mikro vjetroagregati</strong><span class="muted">Dopuna proizvodnji kad sunca nema.</span></div></div>
+        <div class="card card--top card--line c-green"><div class="bar"></div><div class="body"><strong class="h4">Baterijska pohrana</strong><span class="muted">Struja nakon zalaska sunca — i kao nadogradnja postojećeg sustava.</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section grid" style="--min: 480px; --gap: 20px">
+    <div class="card bg-ink" style="border-radius: 32px">
+      <span class="eyebrow t-yellow">Učinkovito i atraktivno</span>
+      <h2 class="h3 wide">Parkiralište koje proizvodi struju.</h2>
+      <p style="color: #D6D2C8">Solarni paneli kao natkrivanje parkirališta, spojeni s punionicama za električna i hibridna vozila. Isplativo, vidljivo i elegantno — uz diskretne solarne crjepove na krovu.</p>
+      <div class="row" style="--gap: 8px; margin-top: auto"><span class="tag" style="border: 1px solid #5A5E64">Nadstrešnice</span><span class="tag" style="border: 1px solid #5A5E64">Punionice EV</span><span class="tag" style="border: 1px solid #5A5E64">Solarni crijep</span></div>
+    </div>
+    <article class="card" style="padding: 0; overflow: hidden; border-radius: 32px">
+      <div class="photo-frame" style="height: 260px; border-radius: 0"><Photo name="nadstresnica" alt="Solarna nadstrešnica s punionicama na poslovnom parkiralištu" style="position: absolute; inset: 0" /></div>
+      <div class="stack" style="padding: clamp(24px, 3vw, 36px); --gap: 14px">
+        <span class="eyebrow t-blue">Studija slučaja</span>
+        <h2 class="h4" style="font-size: 28px">[NAZIV KLIJENTA / OBJEKTA]</h2>
+        <dl class="grid" style="--min: 100px; --gap: 12px">
+          <div class="stack" style="--gap: 2px; flex-direction: column-reverse"><dt class="small muted">snaga</dt><dd class="h4">[kWp]</dd></div>
+          <div class="stack" style="--gap: 2px; flex-direction: column-reverse"><dt class="small muted">ušteda godišnje</dt><dd class="h4">[€]</dd></div>
+          <div class="stack" style="--gap: 2px; flex-direction: column-reverse"><dt class="small muted">manje CO₂</dt><dd class="h4">[t]</dd></div>
+        </dl>
+      </div>
+    </article>
+  </section>
+
+  <section id="sastanak" class="bg-blue">
+    <div class="wrap section split split--top">
+      <div class="stack">
+        <h2 class="h2 wide" style="font-size: clamp(40px, 5vw, 72px); line-height: .95">Dogovorimo sastanak.</h2>
+        <p style="font-size: 19px">Inženjer dolazi na vaš objekt, a vi dobivate procjenu proizvodnje, povrata investicije i mogućnosti sufinanciranja.</p>
+        <p class="mono"><a href={contact.phoneHref}>{contact.phone}</a> · <a href={`mailto:${contact.email}`}>{contact.email}</a></p>
+      </div>
+      <form class="panel form grow-2" data-form="tvrtke">
+        <label class="field">Tvrtka / ustanova<input name="tvrtka" type="text" required /></label>
+        <label class="field">Kontakt osoba<input name="osoba" type="text" autocomplete="name" required /></label>
+        <label class="field">E-mail<input name="email" type="email" autocomplete="email" required /></label>
+        <label class="field">Vrsta objekta<select name="objekt"><option>Poslovni prostor</option><option>Proizvodni pogon</option><option>Javna ustanova</option><option>Jedinica lokalne samouprave</option><option>Parkiralište</option></select></label>
+        <label class="field full">Kratki opis i željeni termin<textarea name="poruka" rows="3"></textarea></label>
+        <button type="submit" class="btn btn--red full" style="justify-self: start">Zatražite sastanak →</button>
+        <p class="form-ok full" data-form-ok hidden>Hvala! Javit ćemo vam se radi termina.</p>
+      </form>
+    </div>
+  </section>
+</Base>

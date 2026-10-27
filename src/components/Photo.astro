@@ -1,0 +1,36 @@
+---
+import { Picture } from 'astro:assets';
+import krov from '../assets/img/krov-solar.jpg';
+import inzenjeri from '../assets/img/inzenjeri.jpg';
+import pogon from '../assets/img/pogon.jpg';
+import nadstresnica from '../assets/img/nadstresnica.jpg';
+import cesta from '../assets/img/cesta.jpg';
+import interijer from '../assets/img/interijer.jpg';
+import monter from '../assets/img/monter.jpg';
+
+const images = { krov, inzenjeri, pogon, nadstresnica, cesta, interijer, monter } as const;
+export type PhotoName = keyof typeof images;
+
+interface Props {
+  name: PhotoName;
+  alt: string;
+  sizes?: string;
+  eager?: boolean;
+  class?: string;
+  style?: string;
+}
+const { name, alt, sizes = '(max-width: 860px) 100vw, 50vw', eager = false, class: cls, style } = Astro.props;
+---
+<Picture
+  src={images[name]}
+  alt={alt}
+  widths={[400, 640, 960, 1280]}
+  sizes={sizes}
+  formats={['avif', 'webp']}
+  quality={58}
+  loading={eager ? 'eager' : 'lazy'}
+  decoding="async"
+  fetchpriority={eager ? 'high' : 'auto'}
+  class={cls}
+  style={style}
+/>

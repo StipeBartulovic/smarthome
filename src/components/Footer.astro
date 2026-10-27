@@ -1,0 +1,48 @@
+---
+import Logo from './Logo.astro';
+import { contact } from '../data/site';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="pe-strip--sm" aria-hidden="true"></div>
+  <div class="wrap foot-grid">
+    <div class="col">
+      <div class="row" style="--gap: 12px"><Logo size={40} variant="dark" /><strong style="font-family: var(--f-display); font-size: 22px; font-stretch: 112%; margin: 0">EKP</strong></div>
+      <span>{contact.company}<br />{contact.address}</span>
+      <a href={contact.phoneHref}>{contact.phone}</a>
+      <a href={`mailto:${contact.email}`}>{contact.email}</a>
+    </div>
+    <div class="col">
+      <strong>Zgrade</strong>
+      <a href="/zgrade">Elektroinstalacije</a>
+      <a href="/zgrade/fotonapon">Fotonapon</a>
+      <a href="/zgrade/vatrodojava">Vatrodojava</a>
+      <a href="/zgrade/pametne-kuce">Pametne kuće</a>
+    </div>
+    <div class="col">
+      <strong>Obnovljivi izvori</strong>
+      <a href="/obnovljivi-izvori/za-dom">Za vaš dom</a>
+      <a href="/obnovljivi-izvori/za-tvrtke">Za tvrtke i javne zgrade</a>
+      <strong style="margin-top: 12px">Ostalo</strong>
+      <a href="/industrija">Industrija</a>
+      <a href="/promet">Promet</a>
+    </div>
+    <div class="col">
+      <strong>EKP</strong>
+      <a href="/projekti">Projekti</a>
+      <a href="/o-nama">O nama</a>
+      <a href="/kontakt">Kontakt</a>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© {year} {contact.company}</span>
+    <span><a href="/kontakt#podaci">Podaci o tvrtki</a> · <a href="#">Privatnost</a> · <a href="#">Kolačići</a></span>
+  </div>
+</footer>
+<nav class="callbar" aria-label="Brzi kontakt">
+  <a href={contact.phoneHref}>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F2C318" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" /></svg>
+    Nazovi
+  </a>
+  <a class="primary" href="/kontakt">Zatraži ponudu</a>
+</nav>

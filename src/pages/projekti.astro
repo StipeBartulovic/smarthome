@@ -1,0 +1,70 @@
+---
+import Base from '../layouts/Base.astro';
+import Crumbs from '../components/Crumbs.astro';
+import Photo, { type PhotoName } from '../components/Photo.astro';
+import Cta from '../components/Cta.astro';
+
+// TODO EKP: zamijeniti stvarnim projektima (naziv, lokacija, godina, ključni podatak, fotografija)
+const areas = {
+  l1: { code: 'L1', name: 'Zgrade', c: 'var(--l1)' },
+  n: { code: 'N', name: 'Obnovljivi izvori', c: 'var(--n)' },
+  l2: { code: 'L2', name: 'Industrija', c: 'var(--l2)' },
+  l3: { code: 'L3', name: 'Promet', c: 'var(--l3)' },
+} as const;
+type Key = keyof typeof areas;
+const projects: { area: Key; type: string; client: string; metric: string; photo: PhotoName; alt: string }[] = [
+  { area: 'n', type: 'Fotonapon', client: 'Dom', metric: '[kWp]', photo: 'krov', alt: 'Kamena kuća sa solarnim panelima na krovu' },
+  { area: 'l1', type: 'Elektroinstalacije', client: 'Stambena zgrada', metric: '[m²]', photo: 'inzenjeri', alt: 'Inženjeri uz razvodni ormar' },
+  { area: 'l1', type: 'Pametna kuća', client: 'Dom', metric: '[m²]', photo: 'interijer', alt: 'Dnevni boravak pametne kuće' },
+  { area: 'l2', type: 'Pametna tvornica', client: 'Tvrtka', metric: '[kW]', photo: 'pogon', alt: 'Inženjer uz upravljački ormar u pogonu' },
+  { area: 'n', type: 'Fotonapon + baterija', client: 'Dom', metric: '[kWp]', photo: 'monter', alt: 'Montaža solarnog panela na krov' },
+  { area: 'l3', type: 'Rekonstrukcija', client: 'Javni sektor', metric: '[km]', photo: 'cesta', alt: 'Obalna cesta s uličnom rasvjetom u sumrak' },
+  { area: 'n', type: 'Solarna nadstrešnica', client: 'Tvrtka', metric: '[kWp]', photo: 'nadstresnica', alt: 'Solarna nadstrešnica s punionicama' },
+];
+const filters: { key: 'all' | Key; label: string; dot: string }[] = [
+  { key: 'all', label: 'Svi', dot: 'conic-gradient(var(--l1) 0 25%, var(--n) 0 50%, var(--l2) 0 75%, var(--l3) 0)' },
+  { key: 'l1', label: 'L1 · Zgrade', dot: 'var(--l1)' },
+  { key: 'n', label: 'N · Obnovljivi', dot: 'var(--n)' },
+  { key: 'l2', label: 'L2 · Industrija', dot: 'var(--l2)' },
+  { key: 'l3', label: 'L3 · Promet', dot: 'var(--l3)' },
+];
+const count = (k: string) => (k === 'all' ? projects.length : projects.filter((p) => p.area === k).length);
+---
+<Base title="Projekti" description="Realizirani projekti EKP-a: zgrade, obnovljivi izvori, industrija i promet." active="projekti">
+  <section class="wrap" style="padding-block: 40px">
+    <div class="stack" style="--gap: 28px">
+      <Crumbs items={[{ label: 'Projekti' }]} />
+      <div class="split split--end">
+        <h1 class="h1 grow-2">Ožičeno.<br />Uključeno. <span class="t-red">Radi.</span></h1>
+        <p class="lead">25 godina projekata — od obiteljskih kuća do pogona i prometnica. Filtrirajte po boji vodiča.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" style="padding-bottom: var(--section)" data-state-group data-state="all">
+    <div class="card card--line row" style="justify-content: space-between; padding: 12px; border-radius: 24px; margin-bottom: 32px">
+      <div class="seg" role="group" aria-label="Filtriraj projekte po području">
+        {filters.map((f) => <button type="button" data-set={f.key} aria-pressed="false"><span class="dot" style={`background: ${f.dot}`}></span>{f.label}<span class="count">{count(f.key)}</span></button>)}
+      </div>
+      <span class="mono small muted" style="padding: 0 8px" aria-live="polite">Prikazano: <span data-count>{projects.length}</span> od {projects.length}</span>
+    </div>
+    <div class="grid" style="--min: 340px; --gap: 20px">
+      {projects.map((p) => {
+        const a = areas[p.area];
+        return (
+          <a class="proj-card" href="#" data-match={p.area} style={`--c: ${a.c}`}>
+            <span class="bar"></span>
+            <span class="img"><Photo name={p.photo} alt={p.alt} sizes="(max-width: 760px) 100vw, 33vw" /><span class="tag">{p.client}</span></span>
+            <span class="txt">
+              <span class="eyebrow" style="font-size: 12px"><span class="dot dot--sm" style={`--c: ${a.c}`}></span>{a.code} · {a.name} · {p.type}</span>
+              <span class="h4" style="font-size: 24px">[NAZIV PROJEKTA]</span>
+              <span class="foot"><span>[LOKACIJA] · [GODINA]</span><span>{p.metric}</span></span>
+            </span>
+          </a>
+        );
+      })}
+    </div>
+  </section>
+
+  <Cta title="Sljedeći projekt na ovoj listi može biti vaš." tone="ink" secondary={{ label: 'Zatražite ponudu', href: '/kontakt' }} />
+</Base>

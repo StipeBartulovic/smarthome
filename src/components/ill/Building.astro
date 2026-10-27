@@ -1,0 +1,20 @@
+<svg viewBox="0 0 600 360" role="img" aria-label="Ilustracija: stambena zgrada s osvijetljenim prozorima, razvodnim ormarom i pametnim termostatom">
+  <rect y="320" width="600" height="40" fill="#DCD6C9" />
+  <rect x="160" y="48" width="280" height="16" rx="3" fill="#16181B" />
+  <rect x="170" y="60" width="260" height="260" fill="#fff" stroke="#16181B" stroke-width="3" />
+  <g stroke="#16181B" stroke-width="2">
+    {[85, 135, 185].map((y, r) => [195, 255, 315, 375].map((x, c) => (
+      <rect x={x} y={y} width="40" height="30" fill={(r + c) % 2 === 0 ? '#F2C318' : '#E9E4D8'} />
+    )))}
+    <rect x="275" y="266" width="50" height="54" fill="#A51C24" />
+  </g>
+  <rect x="64" y="250" width="58" height="70" rx="4" fill="#16181B" />
+  <path d="M98 262l-12 24h14l-12 24" fill="none" stroke="#F2C318" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M93 320v24h207v-24" fill="none" stroke="#A51C24" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M510 320v-58" stroke="#16181B" stroke-width="5" />
+  <circle cx="510" cy="244" r="36" fill="#2F8F46" />
+  <rect x="442" y="76" width="128" height="70" rx="14" fill="#fff" stroke="#16181B" stroke-width="2.5" />
+  <text x="458" y="100" fill="#55524B" font-family="IBM Plex Mono, monospace" font-size="11">PAMETNA KUĆA</text>
+  <text x="458" y="132" fill="#16181B" font-family="Archivo Variable, sans-serif" font-weight="800" font-size="26">22 °C</text>
+  <circle cx="548" cy="124" r="7" fill="#2F8F46" />
+</svg>

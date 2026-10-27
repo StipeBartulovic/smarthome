@@ -1,0 +1,90 @@
+---
+import Base from '../../layouts/Base.astro';
+import SubNav from '../../components/SubNav.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import Cta from '../../components/Cta.astro';
+---
+<Base title="Vatrodojava" description="Projektiranje, ugradnja i održavanje sustava vatrodojave za domove, poslovne prostore te privatne i javne zgrade." active="usluge">
+  <SubNav active="vatrodojava" />
+
+  <section class="bg-ink">
+    <div class="wrap" style="padding-block: 40px var(--section)">
+      <div class="stack" style="--gap: 32px">
+        <Crumbs items={[{ label: 'Zgrade', href: '/zgrade' }, { label: 'Vatrodojava' }]} />
+        <div class="split">
+          <div class="stack" style="--gap: 24px">
+            <span class="eyebrow"><span class="dot dot--pe"></span>L1 · Zgrade · Vatrodojava</span>
+            <h1 class="h1">Uvijek budna.<br /><span style="color: var(--red-light)">Da vi ne morate biti.</span></h1>
+            <p class="lead">Zaštitite dom ili posao najnovijim sustavima vatrodojave. Uvijek na oprezu, daju vam mir — da jednostavno uživate u prostoru ili vodite posao bez brige.</p>
+            <a class="btn btn--red" href="/kontakt" style="align-self: flex-start">Procjena za moj objekt <span aria-hidden="true">→</span></a>
+          </div>
+
+          <div class="alarm stack" data-state-group data-state="off" style="background: var(--night); border-radius: 32px; padding: clamp(16px, 2.5vw, 28px); --gap: 16px">
+            <div class="row" style="justify-content: space-between">
+              <span class="status mono small" aria-live="polite">
+                <span data-show="off">● SUSTAV U REDU · 4 DETEKTORA AKTIVNA</span>
+                <span data-show="on" hidden>● ALARM · KUHINJA · DETEKTOR 02</span>
+              </span>
+              <span>
+                <button type="button" class="btn btn--ghost btn--ghost-dark" data-set="on" aria-pressed="false" data-show="off">Simuliraj alarm</button>
+                <button type="button" class="btn btn--light" data-set="off" aria-pressed="true" data-show="on" hidden>Poništi alarm</button>
+              </span>
+            </div>
+            <svg viewBox="0 0 600 420" role="img" aria-label="Tlocrt objekta s detektorima, centralom i sirenom; simulacija alarma u kuhinji">
+              <rect class="perim" x="60" y="40" width="480" height="360" rx="22" fill="none" stroke-width="2" stroke-dasharray="10 8" />
+              <rect x="80" y="60" width="440" height="320" fill="#2A2D31" stroke="#5A5E64" stroke-width="2" />
+              <rect class="a-on" x="300" y="60" width="220" height="160" fill="#A51C24" fill-opacity=".45" />
+              <path d="M80 220h440M300 60v320" stroke="#5A5E64" stroke-width="2" />
+              <g font-family="IBM Plex Mono, monospace" font-size="11" fill="#9A9DA2"><text x="96" y="206">DNEVNI BORAVAK</text><text x="316" y="206">KUHINJA · D02</text><text x="96" y="366">ULAZ</text><text x="316" y="366">GARAŽA</text></g>
+              <circle class="a-on ring" cx="410" cy="110" r="30" fill="none" stroke="#E0434B" stroke-width="3" />
+              <g stroke="#F6F3EC" stroke-width="2" fill="#2F8F46"><circle cx="190" cy="110" r="10" /><circle cx="190" cy="270" r="10" /><circle cx="410" cy="270" r="10" /></g>
+              <circle class="a-off" cx="410" cy="110" r="10" fill="#2F8F46" stroke="#F6F3EC" stroke-width="2" />
+              <circle class="a-on" cx="410" cy="110" r="10" fill="#E0434B" stroke="#F6F3EC" stroke-width="2" />
+              <path d="M142 290v-50h268v20M190 240V120M410 240V120M410 240h94v-4" fill="none" stroke="#5A5E64" stroke-width="2" stroke-dasharray="4 5" />
+              <rect x="100" y="290" width="84" height="56" rx="6" fill="#16181B" stroke="#9A9DA2" stroke-width="2" />
+              <rect class="a-off" x="108" y="298" width="68" height="24" rx="3" fill="#3FB35B" />
+              <rect class="a-on" x="108" y="298" width="68" height="24" rx="3" fill="#E0434B" />
+              <text class="a-off" x="142" y="314" text-anchor="middle" fill="#16181B" font-family="IBM Plex Mono, monospace" font-size="10">OK</text>
+              <text class="a-on" x="142" y="314" text-anchor="middle" fill="#16181B" font-family="IBM Plex Mono, monospace" font-size="10">ALARM D02</text>
+              <path d="M496 236h16l8 16h-32z" fill="#5A5E64" stroke="#F6F3EC" stroke-width="2" stroke-linejoin="round" />
+              <path class="a-on" d="M496 236h16l8 16h-32z" fill="#E0434B" />
+            </svg>
+            <p class="small muted" data-show="off">Centrala, detektori i sirena povezani u perimetar ranog upozorenja. Isprobajte simulaciju.</p>
+            <p class="small" style="color: #D6D2C8" data-show="on" hidden>Detektor u kuhinji javlja centrali, sirena se oglašava, a vi u sekundi znate točno gdje je problem.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <div class="head">
+      <div class="stack" style="--gap: 16px"><p class="eyebrow eyebrow--red">Ništa manje od najboljeg</p><h2 class="h2">Sigurnosni perimetar ranog upozorenja.</h2></div>
+      <p>Najsuvremeniji sustavi povećavaju zaštitu i smanjuju smetnje u svakodnevnom životu i poslovanju.</p>
+    </div>
+    <div class="grid" style="--min: 260px">
+      <div class="card"><span class="icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#F2C318" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2" /><rect x="6" y="7" width="12" height="5" rx="1" /><path d="M7 16h.01M12 16h.01M17 16h.01" /></svg></span><strong class="h4">Centrale</strong><span style="color: var(--ink-2)">Mozak sustava: prati svaki detektor i odmah javlja gdje je problem.</span></div>
+      <div class="card"><span class="icon c-red"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="3" /><path d="M6.3 6.3a8 8 0 0 0 0 11.4M17.7 6.3a8 8 0 0 1 0 11.4M3.5 3.5a12 12 0 0 0 0 17M20.5 3.5a12 12 0 0 1 0 17" /></svg></span><strong class="h4">Detektori</strong><span style="color: var(--ink-2)">Prepoznaju dim i toplinu prije nego što požar postane opasnost.</span></div>
+      <div class="card"><span class="icon c-green"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0-6 6c0 4-2 6-2 6h16s-2-2-2-6a6 6 0 0 0-6-6zM10 19a2 2 0 0 0 4 0" /></svg></span><strong class="h4">Senzori i signalizacija</strong><span style="color: var(--ink-2)">Zajedno s detektorima tvore perimetar koji štiti ljude i imovinu.</span></div>
+    </div>
+  </section>
+
+  <section class="bg-white borders">
+    <div class="wrap section split split--top">
+      <div class="stack">
+        <p class="eyebrow eyebrow--red">Sve sigurnosne potrebe pokrivene</p>
+        <h2 class="h2">Sustav po mjeri — povezan s pametnom kućom.</h2>
+        <p style="color: var(--ink-2)">Procijenimo vašu situaciju i prilagodimo sustav vašim potrebama, povezujući ga sa svim ostalim željenim opcijama.</p>
+        <div class="row" style="--gap: 8px"><span class="chip">Privatne zgrade</span><span class="chip">Javne zgrade</span><span class="chip">Domovi</span><span class="chip">Poslovni prostori</span></div>
+        <a class="link" href="/zgrade/pametne-kuce">Pametne kuće →</a>
+      </div>
+      <ol class="lines">
+        <li><span class="n">01</span><span class="t">Projektiranje i ugradnja sustava vatrodojave</span></li>
+        <li><span class="n">02</span><span class="t">Integracija s funkcijama pametne kuće</span></li>
+        <li><span class="n">03</span><span class="t">Održavanje sustava vatrodojave</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <Cta title="Mir za vas. Budnost za nas." secondary={{ label: 'Zatražite procjenu', href: '/kontakt' }} />
+</Base>

@@ -1,0 +1,85 @@
+---
+import Logo from './Logo.astro';
+import { contact, services } from '../data/site';
+
+interface Props { active?: 'usluge' | 'projekti' | 'o-nama' | 'kontakt' | 'home' }
+const { active = 'home' } = Astro.props;
+---
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="brand" href="/" aria-label="EKP — naslovnica">
+      <Logo />
+      <b>EKP</b>
+    </a>
+    <nav class="nav-links" aria-label="Glavna navigacija">
+      <button type="button" class:list={['nav-toggle', { 'is-active': active === 'usluge' }]} aria-expanded="false" aria-controls="mega" data-menu-toggle>
+        Usluge
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+      </button>
+      <a href="/#za-koga" class="hide-md">Za koga</a>
+      <a href="/projekti" aria-current={active === 'projekti' ? 'page' : undefined}>Projekti</a>
+      <a href="/o-nama" aria-current={active === 'o-nama' ? 'page' : undefined}>O nama</a>
+      <a href="/kontakt" aria-current={active === 'kontakt' ? 'page' : undefined}>Kontakt</a>
+      <a class="nav-phone hide-md" href={contact.phoneHref}>{contact.phoneShort}</a>
+      <span class="lang hide-md"><b>HR</b> / EN</span>
+      <a class="btn btn--red" href="/kontakt">Zatraži ponudu</a>
+    </nav>
+    <div class="row" style="--gap: 4px">
+      <a class="icon-btn" href={contact.phoneHref} aria-label="Nazovite EKP">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" /></svg>
+      </a>
+      <button type="button" class="burger" aria-expanded="false" aria-controls="mega" aria-label="Otvori izbornik" data-menu-toggle>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10" /></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="mega" id="mega" hidden>
+    <div class="wrap mega-inner">
+      <div class="mega-groups">
+        {services.map((s) => (
+          <div class="mega-group">
+            <h3>
+              <a href={s.href}>
+                <span class:list={['dot', `c-${s.area}`]}></span>
+                <span class="code">{s.code}</span>
+                <span class="lbl">{s.label}</span>
+              </a>
+            </h3>
+            <ul>{s.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
+          </div>
+        ))}
+      </div>
+      <div class="mega-extra">
+        <a href="/projekti">Projekti</a>
+        <a href="/o-nama">O nama</a>
+        <a href="/kontakt">Kontakt</a>
+      </div>
+      <a class="mega-call" href={contact.phoneHref}>
+        <span class="pe-mark" aria-hidden="true"></span>
+        <span class="h4">Niste sigurni što vam treba?</span>
+        <span style="color:#D6D2C8">Nazovite inženjera — besplatno savjetovanje.</span>
+        <span class="num">{contact.phone}</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  const mega = document.getElementById('mega');
+  const toggles = document.querySelectorAll<HTMLButtonElement>('[data-menu-toggle]');
+  const setOpen = (open: boolean) => {
+    if (!mega) return;
+    mega.hidden = !open;
+    toggles.forEach((t) => t.setAttribute('aria-expanded', String(open)));
+    document.body.classList.toggle('menu-open', open);
+  };
+  toggles.forEach((t) => t.addEventListener('click', (e) => {
+    e.stopPropagation();
+    setOpen(mega?.hidden ?? false);
+  }));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
+  document.addEventListener('click', (e) => {
+    if (mega && !mega.hidden && !mega.contains(e.target as Node)) setOpen(false);
+  });
+</script>

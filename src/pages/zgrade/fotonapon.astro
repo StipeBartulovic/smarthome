@@ -1,0 +1,186 @@
+---
+import Base from '../../layouts/Base.astro';
+import SubNav from '../../components/SubNav.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import Photo from '../../components/Photo.astro';
+import House from '../../components/ill/House.astro';
+import { contact } from '../../data/site';
+
+const types = [
+  { label: 'Obiteljska kuća', hint: 'Krov, garaža, okućnica' },
+  { label: 'Stambena zgrada', hint: 'Zajednička FN elektrana' },
+  { label: 'Tvrtka', hint: 'Poslovni prostor, parkiralište' },
+  { label: 'Javna zgrada', hint: 'Škole, uredi, ustanove' },
+];
+const options = ['On-grid sustav', 'Off-grid sustav', 'Baterijska pohrana', 'Punionica za auto', 'Solarna nadstrešnica', 'Sufinanciranje', 'Održavanje postojećeg sustava'];
+---
+<Base title="Fotonaponski sustavi" description="Fotonaponski sustavi za kuće, zgrade i tvrtke u Dalmaciji — projekt, izračun povrata, dozvole, sufinanciranje i održavanje." active="usluge">
+  <SubNav active="fotonapon" />
+
+  <section class="wrap" style="padding-block: 40px 88px">
+    <div class="stack" style="--gap: 32px">
+      <Crumbs items={[{ label: 'Zgrade', href: '/zgrade' }, { label: 'Fotonapon' }]} />
+      <div class="split">
+        <div class="stack" style="--gap: 24px">
+          <span class="eyebrow"><span class="dot c-n"></span>Fotonaponski sustavi</span>
+          <h1 class="h1">Vaš krov<br />je <span class="t-red">elektrana.</span></h1>
+          <p class="lead">Hrvatska ima puno sunčanih dana — iskoristite ih. Projektiramo sustav po mjeri, izračunamo povrat investicije, ishodimo dozvole i pomognemo oko sufinanciranja.</p>
+          <div class="row">
+            <a class="btn btn--red" href="#upit">Složite svoj sustav <span aria-hidden="true">↓</span></a>
+            <a class="btn btn--ghost" href={contact.phoneHref}>Nazovite inženjera</a>
+          </div>
+        </div>
+        <div class="ill bg-sand"><House label="DANAS PROIZVEDENO" /></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-ink">
+    <div class="pe-strip" aria-hidden="true"></div>
+    <div class="wrap grid" style="--min: 220px; --gap: 32px; padding-block: 64px">
+      <div class="stack" style="--gap: 12px"><span class="card icon" style="--c: var(--yellow); padding: 0"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#16181B" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg></span><strong class="h4">Sunce</strong><span class="muted">Paneli rade i za oblačnih dana.</span></div>
+      <div class="stack" style="--gap: 12px"><span class="card icon" style="--c: var(--n); padding: 0"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18L8 6h12l-4 12zM6 12h12M12 6l-2 12" /></svg></span><strong class="h4">Struja</strong><span class="muted">Krov proizvodi energiju za kuću ili pogon.</span></div>
+      <div class="stack" style="--gap: 12px"><span class="card icon" style="--c: var(--green); padding: 0"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="5" width="12" height="16" rx="2" /><path d="M10 3h4M13 9l-3 4h4l-3 4" /></svg></span><strong class="h4">Pohrana</strong><span class="muted">Višak spremite u bateriju za noć.</span></div>
+      <div class="stack" style="--gap: 12px"><span class="card icon" style="--c: var(--red); padding: 0"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M5 10l7-7 7 7" /></svg></span><strong class="h4">Zarada</strong><span class="muted">Prodajte višak mreži — ili susjedima.</span></div>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <div class="split split--top">
+      <div class="stack">
+        <p class="eyebrow eyebrow--red">Što dobivate</p>
+        <h2 class="h2">Sve od krova do mreže.</h2>
+        <div class="photo-frame" style="height: 300px; margin-top: 12px"><Photo name="monter" alt="Monter postavlja solarni panel na krov od kupa kanalica" style="position: absolute; inset: 0" /></div>
+      </div>
+      <ol class="lines grow-2">
+        <li><span class="n">01</span><span class="t">Projektiranje i izvedba on-grid i off-grid fotonaponskih sustava</span></li>
+        <li><span class="n">02</span><span class="t">Izračun povrata investicije za vaš objekt</span></li>
+        <li><span class="n">03</span><span class="t">Sva dokumentacija, certifikati i dozvole</span></li>
+        <li><span class="n">04</span><span class="t">Pomoć pri sufinanciranju iz fondova za okoliš i energetsku učinkovitost</span></li>
+        <li><span class="n">05</span><span class="t">Održavanje fotonaponskih sustava</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- KONFIGURATOR -->
+  <section id="upit" class="bg-white borders">
+    <div class="wrap section split split--top" data-wizard>
+      <div class="stack">
+        <p class="eyebrow eyebrow--red">Upit u 3 koraka · 60 sekundi</p>
+        <h2 class="h2">Složite svoj sustav.</h2>
+        <p style="color: var(--ink-2)">Dva kratka pitanja i kontakt. Inženjer vam se javlja s prijedlogom i procjenom povrata investicije.</p>
+        <ol class="progress" style="margin-top: 12px">
+          <li data-progress="1"><i>1</i>Objekt</li>
+          <li data-progress="2"><i>2</i>Sustav</li>
+          <li data-progress="3"><i>3</i>Kontakt</li>
+        </ol>
+      </div>
+      <form class="panel grow-2 stack" style="background: var(--paper); --gap: 28px" data-form="fotonapon" novalidate>
+        <div class="wizard-bar" aria-hidden="true"><i data-bar></i></div>
+
+        <fieldset data-step="1" style="border: 0; margin: 0; padding: 0">
+          <legend class="h3" style="margin-bottom: 20px">Za kakav je objekt?</legend>
+          <div class="choice" data-single="objekt">
+            {types.map((t, i) => <button type="button" aria-pressed={i === 0 ? 'true' : 'false'} data-value={t.label}><b>{t.label}</b><span>{t.hint}</span></button>)}
+          </div>
+          <input type="hidden" name="objekt" value={types[0].label} />
+        </fieldset>
+
+        <fieldset data-step="2" hidden style="border: 0; margin: 0; padding: 0">
+          <legend class="h3" style="margin-bottom: 20px">Što vas zanima? <span class="small muted" style="font-family: var(--f-body); font-weight: 400">Odaberite sve što vrijedi.</span></legend>
+          <div class="toggles" data-multi="zanima">
+            {options.map((o, i) => <button type="button" aria-pressed={i === 0 || i === 2 ? 'true' : 'false'} data-value={o}>{o}</button>)}
+          </div>
+          <input type="hidden" name="zanima" value="On-grid sustav, Baterijska pohrana" />
+        </fieldset>
+
+        <fieldset data-step="3" hidden class="form" style="border: 0; margin: 0; padding: 0">
+          <legend class="h3" style="margin-bottom: 20px">Kamo da se javimo?</legend>
+          <label class="field">Ime i prezime<input name="ime" type="text" autocomplete="name" required /></label>
+          <label class="field">Telefon ili e-mail<input name="kontakt" type="text" required /></label>
+          <label class="field">Lokacija objekta<input name="lokacija" type="text" placeholder="npr. Kaštela" /></label>
+          <label class="field">Mjesečni račun za struju (neobavezno)<input name="racun" type="text" inputmode="decimal" placeholder="€" /></label>
+        </fieldset>
+
+        <div data-step="4" hidden class="stack" style="--gap: 16px">
+          <span class="card icon c-green" style="padding: 0; width: 64px; height: 64px; border-radius: 50%"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l6 6L20 6" /></svg></span>
+          <h3 class="h3">Krug je zatvoren. Hvala!</h3>
+          <p>Inženjer vam se javlja u roku od [ROK ODGOVORA] s prijedlogom.</p>
+        </div>
+
+        <div class="row" style="justify-content: space-between; padding-top: 16px; border-top: 1px solid var(--line)">
+          <span class="mono small muted" data-step-label>Korak 1 od 3</span>
+          <div class="row" style="--gap: 10px">
+            <button type="button" class="btn btn--ghost" data-back hidden>← Natrag</button>
+            <button type="button" class="btn btn--red" data-next>Dalje →</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="wrap section grid" style="--min: 280px; --gap: 20px">
+    <div class="card card--line"><span class="mono small t-red">SUFINANCIRANJE</span><h3 class="h4">Pomažemo s fondovima</h3><p style="color: var(--ink-2)">Prijave na fondove za zaštitu okoliša i energetsku učinkovitost te nacionalne i EU programe.</p></div>
+    <div class="card card--line"><span class="mono small t-red">ZAJEDNIČKI SUSTAVI</span><h3 class="h4">Udružite se sa susjedima</h3><p style="color: var(--ink-2)">Više kuća ili zgrada može dijeliti jednu elektranu — niži početni trošak, zajednička korist.</p></div>
+    <div class="card card--line"><span class="mono small t-red">ODRŽAVANJE</span><h3 class="h4">Visoka tehnologija, malo brige</h3><p style="color: var(--ink-2)">Paneli se samočiste, a pregledi su raspoređeni kroz godine, a ne svake godine.</p></div>
+  </section>
+</Base>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-wizard]');
+  if (root) {
+    const form = root.querySelector('form')!;
+    const steps = root.querySelectorAll<HTMLElement>('[data-step]');
+    const next = root.querySelector<HTMLButtonElement>('[data-next]')!;
+    const back = root.querySelector<HTMLButtonElement>('[data-back]')!;
+    const label = root.querySelector<HTMLElement>('[data-step-label]')!;
+    const bar = root.querySelector<HTMLElement>('[data-bar]')!;
+    let step = 1;
+
+    // jedan izbor
+    root.querySelectorAll<HTMLElement>('[data-single]').forEach((g) => {
+      const input = form.querySelector<HTMLInputElement>(`input[name="${g.dataset.single}"]`)!;
+      g.querySelectorAll<HTMLButtonElement>('button').forEach((b) => b.addEventListener('click', () => {
+        g.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+        input.value = b.dataset.value ?? '';
+      }));
+    });
+    // više izbora
+    root.querySelectorAll<HTMLElement>('[data-multi]').forEach((g) => {
+      const input = form.querySelector<HTMLInputElement>(`input[name="${g.dataset.multi}"]`)!;
+      g.querySelectorAll<HTMLButtonElement>('button').forEach((b) => b.addEventListener('click', () => {
+        b.setAttribute('aria-pressed', String(b.getAttribute('aria-pressed') !== 'true'));
+        input.value = [...g.querySelectorAll<HTMLButtonElement>('[aria-pressed="true"]')].map((x) => x.dataset.value).join(', ');
+      }));
+    });
+
+    const render = () => {
+      steps.forEach((s) => { s.hidden = Number(s.dataset.step) !== step; });
+      root.querySelectorAll<HTMLElement>('[data-progress]').forEach((p) => {
+        const n = Number(p.dataset.progress);
+        p.classList.toggle('is-active', n === step);
+        p.classList.toggle('is-done', n < step);
+        p.querySelector('i')!.textContent = n < step ? '✓' : String(n);
+      });
+      bar.style.width = `${(Math.min(step, 3) / 3) * 100}%`;
+      back.hidden = step === 1 || step === 4;
+      next.textContent = step === 3 ? 'Pošalji upit →' : step === 4 ? 'Novi upit' : 'Dalje →';
+      label.textContent = step < 4 ? `Korak ${step} od 3` : 'Upit poslan';
+    };
+    next.addEventListener('click', () => {
+      if (step === 3) {
+        const fields = steps[2].querySelectorAll<HTMLInputElement>('input[required]');
+        if (![...fields].every((f) => f.reportValidity())) return;
+        form.requestSubmit();
+        step = 4;
+      } else if (step === 4) {
+        step = 1;
+      } else {
+        step++;
+      }
+      render();
+    });
+    back.addEventListener('click', () => { step = Math.max(1, step - 1); render(); });
+    render();
+  }
+</script>

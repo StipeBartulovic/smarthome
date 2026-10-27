@@ -1,0 +1,75 @@
+---
+import Base from '../layouts/Base.astro';
+import Crumbs from '../components/Crumbs.astro';
+import House from '../components/ill/House.astro';
+import Carport from '../components/ill/Carport.astro';
+
+const common = [
+  'Odabir pravog izvora i sustava za vaš objekt',
+  'Projekt usklađen s lokacijom, prostornim planom i propisima*',
+  'Procjena godišnje proizvodnje i povrata investicije',
+  'Sve dozvole, certifikati i papirologija*',
+  'Prijava na nacionalne i EU energetske fondove*',
+  'Ugradnja novog ili nadogradnja postojećeg sustava',
+  'Nadzor projekta',
+  'Održavanje',
+];
+---
+<Base title="Obnovljivi izvori" description="Obnovljivi izvori energije za kućanstva, tvrtke i javne zgrade — sunce, vjetar, pohrana i punionice." active="usluge">
+  <section class="wrap" style="padding-block: 40px 56px">
+    <div class="stack" style="--gap: 28px">
+      <Crumbs items={[{ label: 'Obnovljivi izvori' }]} />
+      <div class="split split--end">
+        <div class="stack grow-2" style="--gap: 20px">
+          <span class="eyebrow"><span class="dot c-n"></span>N · Obnovljivi izvori</span>
+          <h1 class="h1">Sunce i vjetar.<br />Za koga gradimo?</h1>
+        </div>
+        <p class="lead">Obnovljivi izvori pretvaraju vas iz potrošača energije u proizvođača. Rješenja za obiteljsku kuću i za tvrtku ili općinu jako se razlikuju — zato imaju svaki svoj put.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" style="padding-bottom: var(--section)">
+    <div class="grid" style="--min: 520px; --gap: 20px">
+      <a class="card bg-sand" href="/obnovljivi-izvori/za-dom" style="padding: 0; overflow: hidden; border-radius: 36px">
+        <House />
+        <span class="stack" style="padding: clamp(24px, 3vw, 40px); --gap: 16px; flex: 1">
+          <span class="tag" style="background: #fff; align-self: flex-start">ZA VAŠ DOM</span>
+          <span class="h2" style="font-size: clamp(30px, 3.4vw, 48px)">Kuće, stanovi i stambene zgrade</span>
+          <ul class="stack" style="--gap: 8px">
+            <li class="row" style="--gap: 10px"><span class="dot dot--sm c-red"></span>Niži računi za struju i grijanje</li>
+            <li class="row" style="--gap: 10px"><span class="dot dot--sm c-red"></span>Punjenje auta kod kuće, na sunce</li>
+            <li class="row" style="--gap: 10px"><span class="dot dot--sm c-red"></span>Zajednička elektrana sa susjedima</li>
+          </ul>
+          <span class="btn btn--red" style="align-self: flex-start; margin-top: auto">Za moj dom →</span>
+        </span>
+      </a>
+      <a class="card bg-ink" href="/obnovljivi-izvori/za-tvrtke" style="padding: 0; overflow: hidden; border-radius: 36px">
+        <Carport />
+        <span class="stack" style="padding: clamp(24px, 3vw, 40px); --gap: 16px; flex: 1">
+          <span class="tag" style="background: var(--n); color: #fff; align-self: flex-start">ZA TVRTKE I JAVNE ZGRADE</span>
+          <span class="h2" style="font-size: clamp(30px, 3.4vw, 48px)">Tvrtke, općine i javne ustanove</span>
+          <ul class="stack" style="--gap: 8px; color: #D6D2C8">
+            <li class="row" style="--gap: 10px"><span class="dot dot--sm c-yellow"></span>Društvena odgovornost koja se vidi</li>
+            <li class="row" style="--gap: 10px"><span class="dot dot--sm c-yellow"></span>Kombinirani sustavi i baterijska pohrana</li>
+            <li class="row" style="--gap: 10px"><span class="dot dot--sm c-yellow"></span>Solarne nadstrešnice s punionicama</li>
+          </ul>
+          <span class="btn btn--light" style="align-self: flex-start; margin-top: auto">Za tvrtke i javni sektor →</span>
+        </span>
+      </a>
+    </div>
+  </section>
+
+  <section class="bg-white borders">
+    <div class="wrap section split split--top">
+      <div class="stack">
+        <p class="eyebrow eyebrow--red">Što god odabrali</p>
+        <h2 class="h2">Paket po mjeri, od ideje do održavanja.</h2>
+        <p class="small muted">* Dostupno samo na području Republike Hrvatske.</p>
+      </div>
+      <ol class="lines grow-2">
+        {common.map((c, i) => <li><span class="n mono" style="font-size: 13px; font-family: var(--f-mono); font-weight: 400">{String(i + 1).padStart(2, '0')}</span><span style="font-weight: 500">{c}</span></li>)}
+      </ol>
+    </div>
+  </section>
+</Base>
