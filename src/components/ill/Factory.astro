@@ -1,14 +1,66 @@
-<svg viewBox="0 0 600 360" role="img" aria-label="Ilustracija: moderna tvornica sa šedovim krovom, proizvodnom trakom i upravljačkim ormarom">
+---
+const u = Math.random().toString(36).slice(2, 7);
+---
+<svg class="ill-anim ill-factory" viewBox="0 0 600 360" role="img" aria-label="Ilustracija: moderna tvornica sa šedovim krovom, proizvodnom trakom i upravljačkim ormarom">
+  <defs>
+    <linearGradient id={`fsky${u}`} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D3DBE1" /><stop offset="1" stop-color="#E9EDF0" /></linearGradient>
+    <linearGradient id={`fwin${u}`} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2E3F63" /><stop offset="1" stop-color="#1C2740" /></linearGradient>
+    <linearGradient id={`fglass${u}`} x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFE17A" /><stop offset="1" stop-color="#F2C318" /></linearGradient>
+    <linearGradient id={`fcab${u}`} x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6A6F76" /><stop offset="1" stop-color="#4A4E54" /></linearGradient>
+    <clipPath id={`belt${u}`}><rect x="96" y="236" width="290" height="50" /></clipPath>
+  </defs>
+
+  <rect width="600" height="360" fill={`url(#fsky${u})`} />
   <rect y="320" width="600" height="40" fill="#C3CCD1" />
+  <path d="M0 320h600" stroke="#AEB8BE" stroke-width="2" />
+  <ellipse cx="300" cy="323" rx="250" ry="6" fill="#16181B" opacity=".1" />
+
+  <!-- dim iz dimnjaka -->
+  <g fill="#fff">
+    <circle class="a-smoke" cx="471" cy="52" r="12" />
+    <circle class="a-smoke" cx="471" cy="52" r="10" style="animation-delay: 1.3s" />
+    <circle class="a-smoke" cx="471" cy="52" r="14" style="animation-delay: 2.6s" />
+  </g>
   <rect x="452" y="56" width="38" height="110" fill="#A51C24" stroke="#16181B" stroke-width="3" />
+  <path d="M453 80h36M453 104h36" stroke="#fff" stroke-width="7" />
+  <rect x="446" y="50" width="50" height="10" rx="2" fill="#16181B" />
+
+  <!-- zgrada -->
   <path d="M70 320V160l70-60v60l70-60v60l70-60v60l70-60v60l70-60v60h80v160z" fill="#fff" stroke="#16181B" stroke-width="3" stroke-linejoin="round" />
-  <path d="M140 106v52M210 106v52M280 106v52M350 106v52M420 106v52" stroke="#F2C318" stroke-width="7" />
-  <rect x="96" y="192" width="380" height="40" fill="#26344F" stroke="#16181B" stroke-width="2" />
-  <path d="M172 192v40M248 192v40M324 192v40M400 192v40" stroke="#7FA3D9" stroke-width="2" />
-  <rect x="96" y="284" width="280" height="12" rx="6" fill="#16181B" />
-  <g fill="#F2C318" stroke="#16181B" stroke-width="2"><rect x="118" y="260" width="30" height="24" /><rect x="190" y="260" width="30" height="24" /><rect x="262" y="260" width="30" height="24" /></g>
-  <rect x="404" y="256" width="70" height="64" fill="#A51C24" stroke="#16181B" stroke-width="2" />
-  <rect x="526" y="222" width="52" height="98" rx="4" fill="#5A5E64" stroke="#16181B" stroke-width="2.5" />
-  <circle cx="542" cy="242" r="5" fill="#2F8F46" /><circle cx="562" cy="242" r="5" fill="#F2C318" />
-  <rect x="538" y="260" width="28" height="40" rx="2" fill="#16181B" />
+  <path d="M72 168l68-58v8l-68 58z" fill="#16181B" opacity=".06" />
+  <g fill={`url(#fglass${u})`} stroke="#16181B" stroke-width="2">
+    {[140, 210, 280, 350, 420].map((x, i) => <rect class="a-glow" x={x - 5} y="104" width="10" height="56" style={`animation-delay: ${i * .35}s`} />)}
+  </g>
+
+  <rect x="96" y="186" width="380" height="46" rx="3" fill={`url(#fwin${u})`} stroke="#16181B" stroke-width="2.5" />
+  <path d="M172 186v46M248 186v46M324 186v46M400 186v46" stroke="#7FA3D9" stroke-width="2" />
+  <path d="M104 226l30-34M180 226l30-34M256 226l30-34M332 226l30-34M408 226l30-34" stroke="#fff" stroke-opacity=".12" stroke-width="6" />
+
+  <!-- preša -->
+  <rect x="222" y="236" width="56" height="8" fill="#5A5E64" />
+  <g class="a-press"><rect x="243" y="244" width="14" height="10" fill="#9A9DA2" /><rect x="236" y="252" width="28" height="6" rx="1" fill="#16181B" /></g>
+
+  <!-- traka -->
+  <g clip-path={`url(#belt${u})`}>
+    <g class="a-belt">
+      {[40, 112, 184, 256, 328, 400].map((x) => <rect x={x} y="262" width="28" height="22" rx="2" fill="#F2C318" stroke="#16181B" stroke-width="2" />)}
+    </g>
+  </g>
+  <rect x="96" y="284" width="290" height="12" rx="6" fill="#16181B" />
+  <g fill="#5A5E64">{[108, 140, 172, 204, 236, 268, 300, 332, 364].map((x) => <circle cx={x} cy="290" r="3" />)}</g>
+  <path d="M120 296v24M362 296v24" stroke="#16181B" stroke-width="4" />
+
+  <!-- vrata -->
+  <rect x="404" y="252" width="70" height="68" fill="#A51C24" stroke="#16181B" stroke-width="2.5" />
+  <path d="M404 266h70M404 280h70M404 294h70M404 308h70" stroke="#16181B" stroke-opacity=".3" stroke-width="2" />
+
+  <!-- upravljački ormar i kabel -->
+  <path d="M526 300h-20v-40h-28" fill="none" stroke="#16181B" stroke-width="3.5" stroke-linejoin="round" />
+  <path class="a-flow" d="M526 300h-20v-40h-28" fill="none" stroke="#F2C318" stroke-width="2.5" stroke-dasharray="4 10" />
+  <rect x="526" y="214" width="56" height="106" rx="5" fill={`url(#fcab${u})`} stroke="#16181B" stroke-width="2.5" />
+  <circle class="a-blink" cx="542" cy="232" r="5" fill="#3FD16A" />
+  <circle class="a-blink" cx="562" cy="232" r="5" fill="#F2C318" style="animation-delay: .7s" />
+  <rect x="536" y="246" width="36" height="30" rx="2" fill="#16181B" />
+  <g fill="#3FD16A"><rect class="a-bar" x="541" y="258" width="5" height="14" /><rect class="a-bar" x="549" y="258" width="5" height="14" style="animation-delay: .3s" /><rect class="a-bar" x="557" y="258" width="5" height="14" style="animation-delay: .6s" /><rect class="a-bar" x="565" y="258" width="3" height="14" style="animation-delay: .9s" /></g>
+  <path d="M536 290h36M536 300h36" stroke="#16181B" stroke-opacity=".35" stroke-width="2" />
 </svg>

@@ -6,11 +6,17 @@ import Cta from '../components/Cta.astro';
 import Factory from '../components/ill/Factory.astro';
 
 const variants = [
-  { key: 'a', label: 'Serija A', color: 'var(--yellow)', status: 'S1 · S2 · S4 aktivne', text: 'Serija A koristi tri stanice; S3 je odspojena i spremna za drugi posao.' },
-  { key: 'b', label: 'Serija B', color: 'var(--n)', status: 'S1 · S3 · S4 aktivne', text: 'Za seriju B stanica S2 se odspaja, a S3 uključuje — bez novog ožičenja linije.' },
-  { key: 'c', label: 'Serija C', color: 'var(--red-light)', status: 'S1 · S2 · S3 aktivne', text: 'Serija C završava na S3. Alati i strojevi brzo se prespajaju, a proizvodnja ostaje lean.' },
+  { key: 'a', label: 'Serija A', color: 'var(--yellow)', title: 'Serija A — 3 od 4 stanice', text: 'Rezanje, bušenje i pakiranje. Zavarivanje (S3) je odspojeno i slobodno za drugi posao.' },
+  { key: 'b', label: 'Serija B', color: 'var(--n)', title: 'Serija B — 3 od 4 stanice', text: 'Bušenje (S2) se odspaja, a zavarivanje (S3) uključuje — jednim klikom, bez novog ožičenja linije.' },
+  { key: 'c', label: 'Serija C', color: 'var(--red-light)', title: 'Serija C — 3 od 4 stanice', text: 'Serija završava na zavarivanju (S3), pakiranje (S4) miruje. Alati se prespajaju brzo, proizvodnja ostaje lean.' },
 ];
-const stations = [80, 210, 340, 470];
+// Stanice i serije u kojima su aktivne
+const stations = [
+  { x: 80, name: 'REZANJE', on: 'a b c' },
+  { x: 210, name: 'BUŠENJE', on: 'a c' },
+  { x: 340, name: 'ZAVARIVANJE', on: 'b c' },
+  { x: 470, name: 'PAKIRANJE', on: 'a b' },
+];
 ---
 <Base title="Industrija" description="Elektroinstalacije za pametne tvornice: E-plan i BIM projektiranje, integracija sustava, Electricity 4.0 i manje zastoja." active="usluge" bodyClass="bg-cool">
   <section class="bg-ink">
@@ -45,27 +51,42 @@ const stations = [80, 210, 340, 470];
         <div class="seg" role="group" aria-label="Odaberite seriju">
           {variants.map((v) => <button type="button" data-set={v.key} aria-pressed="false"><span class="dot" style={`--c: ${v.color}; border-radius: 3px`}></span>{v.label}</button>)}
         </div>
-        {variants.map((v) => <span class="mono small muted" data-show={v.key} hidden>{v.status}</span>)}
+        <ul class="st-chips" aria-label="Stanje stanica">
+          {stations.map((s, i) => <li data-on={s.on}><span class="led"></span>S{i + 1}</li>)}
+        </ul>
       </div>
       <div class="stage-svg" style="background: var(--night)">
-        <svg viewBox="0 0 640 320" role="img" aria-label="Proizvodna linija s četiri stanice; odabrana serija uključuje različite stanice">
-          <rect y="280" width="640" height="40" fill="#2A2D31" />
-          <path d="M30 60h580" stroke="#F2C318" stroke-width="5" stroke-linecap="round" />
-          <circle cx="30" cy="60" r="9" fill="#F2C318" />
-          <text x="30" y="40" fill="#9A9DA2" font-family="IBM Plex Mono, monospace" font-size="11">SABIRNICA</text>
-          {stations.map((x, i) => (
-            <g class={`s${i}`}>
-              <path class="drop" d={`M${x + 45} 60v50`} stroke-width="4" />
-              <rect class="st" x={x} y="110" width="90" height="100" rx="8" stroke="#5A5E64" stroke-width="2" />
-              <text class="st-t" x={x + 45} y="166" text-anchor="middle" font-family="Archivo Variable, sans-serif" font-weight="800" font-size="20">S{i + 1}</text>
+        <svg class="ill-anim" viewBox="0 0 640 330" role="img" aria-label="Proizvodna linija s četiri stanice; odabrana serija uključuje različite stanice">
+          <defs><clipPath id="beltclip"><rect x="30" y="220" width="580" height="40" /></clipPath></defs>
+          <rect y="290" width="640" height="40" fill="#2A2D31" />
+          <text x="30" y="34" fill="#C9CDD2" font-family="IBM Plex Mono, monospace" font-size="13" letter-spacing="1">SABIRNICA · NAPAJANJE</text>
+          <path d="M30 56h580" stroke="#F2C318" stroke-width="5" stroke-linecap="round" />
+          <path class="a-flow" d="M30 56h580" stroke="#FFF2B0" stroke-width="2" stroke-dasharray="3 11" />
+          <circle cx="30" cy="56" r="9" fill="#F2C318" />
+          {stations.map((s, i) => (
+            <g class="station" data-on={s.on}>
+              <path class="drop" d={`M${s.x + 45} 56v44`} stroke-width="4" />
+              <path class="drop-flow a-flow" d={`M${s.x + 45} 56v44`} stroke-width="2" stroke-dasharray="3 11" />
+              <rect class="st" x={s.x} y="100" width="90" height="118" rx="10" stroke-width="2" />
+              <text class="st-t" x={s.x + 45} y="140" text-anchor="middle" font-family="Archivo Variable, sans-serif" font-weight="800" font-size="24">S{i + 1}</text>
+              <text class="st-n" x={s.x + 45} y="164" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size={s.name.length > 9 ? 10 : 11}>{s.name}</text>
+              <rect class="st-badge" x={s.x + 10} y="184" width="70" height="22" rx="11" />
+              <text class="st-on" x={s.x + 45} y="199" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" font-weight="500">AKTIVNA</text>
+              <text class="st-off" x={s.x + 45} y="199" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" font-weight="500">ODSPOJENA</text>
             </g>
           ))}
-          <rect x="30" y="246" width="580" height="14" rx="7" fill="#5A5E64" />
-          {stations.map((x) => <rect class="prod" x={x + 24} y="224" width="30" height="22" stroke="#16181B" stroke-width="2" />)}
-          <path d="M590 236h30l-10-8" fill="none" stroke="#9A9DA2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+          <rect x="30" y="256" width="580" height="14" rx="7" fill="#5A5E64" />
+          <g clip-path="url(#beltclip)"><g class="a-belt-line">{[0, 1, 2, 3, 4, 5, 6, 7, 8].map((i) => <rect class="prod" x={i * 72 - 40} y="232" width="30" height="24" stroke="#16181B" stroke-width="2" />)}</g></g>
+          <path d="M600 244h24l-9-8M624 244l-9 8" fill="none" stroke="#C9CDD2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+          <text x="30" y="315" fill="#C9CDD2" font-family="IBM Plex Mono, monospace" font-size="12">TRAKA → GOTOV PROIZVOD</text>
         </svg>
       </div>
-      {variants.map((v) => <p data-show={v.key} hidden style="color: #3A3F44">{v.text}</p>)}
+      {variants.map((v) => (
+        <div class="line-caption" data-show={v.key} hidden>
+          <span class="dot" style={`--c: ${v.color}; border-radius: 3px`}></span>
+          <div><h3 class="h4">{v.title}</h3><p>{v.text}</p></div>
+        </div>
+      ))}
     </div>
   </section>
 

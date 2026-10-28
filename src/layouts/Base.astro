@@ -92,3 +92,34 @@ const fullTitle = title === 'EKP' ? 'EKP — Mi ožičimo. Vi samo uključite.' 
     });
   });
 </script>
+
+<script>
+  // Animacije pri skrolanju: blokovi se pojavljuju odozdo, a SVG ilustracije se animiraju samo dok su vidljive.
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const playIO = new IntersectionObserver((entries) => {
+    for (const e of entries) e.target.classList.toggle('in-view', e.isIntersecting);
+  }, { rootMargin: '80px' });
+  document.querySelectorAll('.ill-anim').forEach((el) => playIO.observe(el));
+
+  if (!calm) {
+    const sel = 'main :is(.grid > *, .split > *, .head, .card, .portal, .photo-frame, .ill, .proj-card, .stats > *, .steps > *, .vsteps > *, .faq > *)';
+    const all = new Set(document.querySelectorAll<HTMLElement>(sel));
+    // Samo najviši blokovi; ugniježđeni se pojavljuju zajedno s roditeljem.
+    const blocks = [...all].filter((el) => {
+      for (let p = el.parentElement; p; p = p.parentElement) if (all.has(p)) return false;
+      return true;
+    });
+    const revealIO = new IntersectionObserver((entries) => {
+      const shown = entries.filter((e) => e.isIntersecting).map((e) => e.target as HTMLElement);
+      shown.forEach((el, i) => {
+        el.style.setProperty('--rd', `${Math.min(i, 5) * 90}ms`);
+        el.classList.add('is-in');
+        revealIO.unobserve(el);
+        // Nakon ulaska vrati elementu njegove vlastite tranzicije (hover i sl.)
+        setTimeout(() => { el.classList.remove('rv', 'is-in'); el.style.removeProperty('--rd'); }, 1400);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    blocks.forEach((el) => { el.classList.add('rv'); revealIO.observe(el); });
+  }
+</script>

@@ -1,11 +1,42 @@
-<svg viewBox="0 0 600 360" role="img" aria-label="Ilustracija: cesta noću osvijetljena uličnim svjetiljkama">
-  <rect width="600" height="360" fill="#1E2430" />
+---
+const u = Math.random().toString(36).slice(2, 7);
+---
+<svg class="ill-anim ill-road" viewBox="0 0 600 360" role="img" aria-label="Ilustracija: cesta noću osvijetljena uličnim svjetiljkama">
+  <defs>
+    <linearGradient id={`rsky${u}`} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#141925" /><stop offset="1" stop-color="#26304A" /></linearGradient>
+    <linearGradient id={`rroad${u}`} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2E3544" /><stop offset="1" stop-color="#454E60" /></linearGradient>
+    <linearGradient id={`rcone${u}`} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE17A" stop-opacity=".45" /><stop offset="1" stop-color="#F2C318" stop-opacity="0" /></linearGradient>
+    <radialGradient id={`rmoon${u}`}><stop offset=".5" stop-color="#F6F3EC" stop-opacity=".3" /><stop offset="1" stop-color="#F6F3EC" stop-opacity="0" /></radialGradient>
+  </defs>
+
+  <rect width="600" height="360" fill={`url(#rsky${u})`} />
+  <circle cx="80" cy="50" r="48" fill={`url(#rmoon${u})`} />
   <circle cx="80" cy="50" r="20" fill="#F6F3EC" />
-  <g fill="#F6F3EC"><circle cx="200" cy="34" r="2" /><circle cx="330" cy="60" r="2" /><circle cx="450" cy="30" r="2" /></g>
-  <path d="M0 170l120-30 110 16 100-26 120 20 150-14v214H0z" fill="#283041" />
-  <path d="M262 154h76l262 206H0z" fill="#3A4252" />
-  <g fill="#F2C318"><path d="M297 166h6l2 24h-10zM293 214h14l3 36h-20zM287 282h26l4 48h-34z" /></g>
-  <g fill="#F2C318" fill-opacity=".16"><path d="M152 136h30l78 184H70zM418 136h30l82 184H340z" /></g>
-  <g stroke="#9A9DA2" stroke-width="6" stroke-linecap="round"><path d="M110 360V130h62M490 360V130h-62" /></g>
-  <g fill="#F2C318"><rect x="150" y="128" width="34" height="10" rx="3" /><rect x="416" y="128" width="34" height="10" rx="3" /></g>
+  <circle cx="88" cy="44" r="18" fill="#1A2030" opacity=".35" />
+  <g fill="#F6F3EC">
+    {[[200, 34], [330, 60], [450, 30], [260, 90], [540, 70], [150, 100], [390, 22]].map(([x, y], i) => <circle class="a-twinkle" cx={x} cy={y} r={i % 3 === 0 ? 2.2 : 1.4} style={`animation-delay: ${i * .6}s`} />)}
+  </g>
+
+  <path d="M0 170l120-30 110 16 100-26 120 20 150-14v214H0z" fill="#232A3A" />
+  <path d="M0 196l140-20 120 10 140-18 200 16v176H0z" fill="#2A3243" />
+  <path d="M262 154h76l262 206H0z" fill={`url(#rroad${u})`} />
+  <path d="M262 154L0 360M338 154l262 206" stroke="#F6F3EC" stroke-opacity=".5" stroke-width="2" />
+
+  <g fill="#F2C318">
+    <path class="a-lane" d="M297 166h6l2 24h-10z" />
+    <path class="a-lane" d="M293 214h14l3 36h-20z" style="animation-delay: .35s" />
+    <path class="a-lane" d="M287 282h26l4 48h-34z" style="animation-delay: .7s" />
+  </g>
+
+  <g class="a-lamp"><path d="M150 136h36l90 190H60z" fill={`url(#rcone${u})`} /></g>
+  <g class="a-lamp" style="animation-delay: 1.1s"><path d="M414 136h36l90 190H324z" fill={`url(#rcone${u})`} /></g>
+  <g stroke="#9A9DA2" stroke-width="6" stroke-linecap="round" fill="none"><path d="M110 360V140q0-10 10-10h50M490 360V140q0-10-10-10h-50" /></g>
+  <g fill="#FFE17A"><rect x="150" y="128" width="36" height="10" rx="3" /><rect x="414" y="128" width="36" height="10" rx="3" /></g>
+  <g fill="#F2C318" opacity=".5"><ellipse cx="168" cy="140" rx="22" ry="5" /><ellipse cx="432" cy="140" rx="22" ry="5" /></g>
+
+  <!-- auto u daljini -->
+  <g class="a-approach" style="transform-origin: 318px 160px">
+    <rect x="310" y="156" width="16" height="8" rx="2" fill="#16181B" />
+    <circle cx="313" cy="160" r="1.8" fill="#FFF6D0" /><circle cx="323" cy="160" r="1.8" fill="#FFF6D0" />
+  </g>
 </svg>
